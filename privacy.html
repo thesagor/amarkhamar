@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>গোপনীয়তা নীতি – আমার খামার</title>
+  <meta name="description" content="আমার খামার অ্যাপের গোপনীয়তা নীতি। আপনার তথ্য কীভাবে সংগ্রহ, ব্যবহার ও সুরক্ষা করা হয় জানুন।" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: linear-gradient(160deg, #F0FFF4 0%, #E8F5EC 60%, #DCEEE4 100%);
+      padding: 110px 6% 60px;
+      text-align: center;
+    }
+    .page-hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-light); border: 1px solid rgba(45,134,89,.25);
+      border-radius: 20px; padding: 6px 14px; margin-bottom: 20px;
+      font-size: 13px; font-weight: 600; color: var(--green-dark);
+    }
+    .page-hero-tag::before { content: '🔒'; margin-right: 2px; }
+    .page-hero h1 {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700; color: var(--green-dark);
+      margin-bottom: 14px; line-height: 1.2;
+    }
+    .page-hero p {
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--text-muted); max-width: 580px;
+      margin: 0 auto 20px; line-height: 1.7;
+    }
+    .update-badge {
+      display: inline-block;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; padding: 6px 16px;
+      font-size: 13px; color: var(--text-muted);
+    }
+
+    /* ── CONTENT ── */
+    .content-wrap {
+      max-width: 800px; margin: 0 auto;
+      padding: 56px 6% 80px;
+    }
+
+    /* Table of contents */
+    .toc {
+      background: var(--bg); border-radius: var(--radius);
+      padding: 24px 28px; margin-bottom: 48px;
+      border: 1px solid var(--border);
+    }
+    .toc h3 { font-size: 16px; font-weight: 700; margin-bottom: 14px; color: var(--green-dark); }
+    .toc ol { padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+    .toc ol li a {
+      text-decoration: none; color: var(--green);
+      font-size: 14px; font-weight: 500; transition: color .2s;
+    }
+    .toc ol li a:hover { color: var(--green-dark); text-decoration: underline; }
+
+    /* Policy sections */
+    .policy-section { margin-bottom: 48px; scroll-margin-top: 88px; }
+    .policy-section h2 {
+      font-size: clamp(20px, 2.5vw, 26px); font-weight: 700; color: var(--green-dark);
+      margin-bottom: 16px; padding-bottom: 10px;
+      border-bottom: 2px solid var(--green-light);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .policy-section h2 .sec-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--green-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .policy-section p { font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 14px; }
+    .policy-section p:last-child { margin-bottom: 0; }
+    .policy-section ul, .policy-section ol {
+      padding-left: 0; list-style: none;
+      display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px;
+    }
+    .policy-section ul li {
+      font-size: 15px; color: var(--text-muted);
+      line-height: 1.7; display: flex; align-items: flex-start; gap: 10px;
+    }
+    .policy-section ul li::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 13px; flex-shrink: 0; margin-top: 3px; }
+    .policy-section ul li.cross::before { content: '✗'; color: var(--red); }
+    .policy-section ul li.dot::before  { content: '•'; color: var(--green); font-size: 18px; margin-top: 0; }
+
+    /* Highlight / warning boxes */
+    .highlight-box {
+      background: var(--green-light); border-left: 4px solid var(--green);
+      border-radius: 0 10px 10px 0; padding: 16px 20px;
+      margin: 18px 0; font-size: 15px; color: var(--text); line-height: 1.7;
+    }
+    .highlight-box strong { color: var(--green-dark); }
+    .warning-box {
+      background: var(--orange-light); border-left: 4px solid var(--orange);
+      border-radius: 0 10px 10px 0; padding: 16px 20px;
+      margin: 18px 0; font-size: 15px; color: var(--text); line-height: 1.7;
+    }
+
+    /* Data table */
+    .data-table {
+      width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px;
+      border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .data-table th { background: var(--green-dark); color: #fff; padding: 12px 16px; text-align: left; font-weight: 600; }
+    .data-table td { padding: 11px 16px; border-bottom: 1px solid var(--border); color: var(--text-muted); vertical-align: top; line-height: 1.6; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:nth-child(even) td { background: var(--bg); }
+    .badge-yes { color: var(--green); font-weight: 700; }
+    .badge-no  { color: var(--red);   font-weight: 700; }
+
+    /* Contact card */
+    .contact-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 16px; box-shadow: var(--shadow); }
+    .contact-row { display: flex; align-items: center; gap: 14px; }
+    .contact-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .contact-label { font-size: 12px; color: var(--text-muted); }
+    .contact-value { font-size: 15px; font-weight: 600; color: var(--text); }
+    .contact-value a { color: var(--green); text-decoration: none; }
+    .contact-value a:hover { text-decoration: underline; }
+
+    /* Back to top */
+    .back-to-top {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-light); color: var(--green-dark);
+      border-radius: 20px; padding: 8px 18px;
+      text-decoration: none; font-size: 14px; font-weight: 600;
+      transition: background .2s; margin-top: 32px;
+    }
+    .back-to-top:hover { background: #d4edda; }
+
+    /* ── PAGE-SPECIFIC RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .page-hero   { padding: 90px 4% 48px; }
+      .content-wrap { padding: 40px 4% 60px; }
+      .data-table  { font-size: 13px; }
+      .data-table th, .data-table td { padding: 9px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-icon">🌿</div>
+    <span class="nav-logo-text">আমার খামার</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#features">ফিচার</a></li>
+    <li><a href="index.html#how">কীভাবে কাজ করে</a></li>
+    <li><a href="index.html#benefits">সুবিধা</a></li>
+    <li><a href="index.html#download">ডাউনলোড</a></li>
+  </ul>
+  <a href="index.html#download" class="nav-cta">ফ্রি ডাউনলোড করুন</a>
+  <div class="nav-burger" id="navBurger" aria-label="মেনু খুলুন" role="button" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Drawer -->
+<div class="nav-mobile-drawer" id="mobileDrawer">
+  <a href="index.html#features">✨ ফিচার</a>
+  <a href="index.html#how">📋 কীভাবে কাজ করে</a>
+  <a href="index.html#benefits">💡 সুবিধা</a>
+  <a href="index.html#download">📥 ডাউনলোড</a>
+  <a href="index.html#download" class="drawer-cta">⬇️ ফ্রি ডাউনলোড করুন</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-tag">গোপনীয়তা নীতি</div>
+  <h1>আপনার গোপনীয়তা আমাদের অগ্রাধিকার</h1>
+  <p>আমার খামার অ্যাপ ব্যবহার করে আপনার তথ্য কীভাবে সংগ্রহ ও সুরক্ষা করা হয় তা নিচে বিস্তারিত ব্যাখ্যা করা হয়েছে।</p>
+  <div class="update-badge">📅 সর্বশেষ আপডেট: জুন ২০২৫</div>
+</div>
+
+<!-- CONTENT -->
+<div class="content-wrap">
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>📋 বিষয়বস্তু</h3>
+    <ol>
+      <li><a href="#s1">সংক্ষিপ্ত সারসংক্ষেপ</a></li>
+      <li><a href="#s2">আমরা কোন তথ্য সংগ্রহ করি</a></li>
+      <li><a href="#s3">তথ্য কীভাবে সংরক্ষণ হয়</a></li>
+      <li><a href="#s4">বিজ্ঞাপন (Google AdMob)</a></li>
+      <li><a href="#s5">অনুমতি (Permissions)</a></li>
+      <li><a href="#s6">তৃতীয় পক্ষের সাথে তথ্য শেয়ার</a></li>
+      <li><a href="#s7">শিশুদের গোপনীয়তা</a></li>
+      <li><a href="#s8">আপনার অধিকার</a></li>
+      <li><a href="#s9">নীতি পরিবর্তন</a></li>
+      <li><a href="#s10">যোগাযোগ করুন</a></li>
+    </ol>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="policy-section" id="s1">
+    <h2><div class="sec-icon">📌</div>১. সংক্ষিপ্ত সারসংক্ষেপ</h2>
+    <div class="highlight-box">
+      <strong>সহজ কথায়:</strong> আমার খামার একটি সম্পূর্ণ অফলাইন অ্যাপ। আপনার খামারের সব তথ্য — গরু, দুধ, আয়-ব্যয় — শুধুমাত্র <strong>আপনার ফোনে</strong> সংরক্ষিত থাকে। আমরা কোনো তথ্য আমাদের সার্ভারে পাঠাই না।
+    </div>
+    <ul>
+      <li>অ্যাপ ব্যবহারের জন্য কোনো অ্যাকাউন্ট বা রেজিস্ট্রেশন লাগে না</li>
+      <li>আপনার নাম, ফোন নম্বর বা ইমেইল সংগ্রহ করা হয় না</li>
+      <li>খামারের ডেটা কখনো ইন্টারনেটে পাঠানো হয় না</li>
+      <li>শুধুমাত্র বিজ্ঞাপন প্রদর্শনের জন্য Google AdMob ব্যবহার করা হয়</li>
+    </ul>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="policy-section" id="s2">
+    <h2><div class="sec-icon">📊</div>২. আমরা কোন তথ্য সংগ্রহ করি</h2>
+    <p>আমার খামার অ্যাপ দুই ধরনের তথ্যের সাথে কাজ করে:</p>
+
+    <h3 style="font-size:17px;font-weight:700;margin:20px 0 10px;color:var(--green-dark);">ক. আপনি যা দেন (স্থানীয় ডেটা)</h3>
+    <p>অ্যাপে আপনি যা লেখেন তা শুধু আপনার ফোনে থাকে। এই তথ্যগুলো কোনো সার্ভারে যায় না:</p>
+    <ul>
+      <li>খামারের নাম ও মালিকের নাম (সেটিংস থেকে)</li>
+      <li>গরুর তথ্য — নাম, ট্যাগ, জাত, বয়স</li>
+      <li>দুধ উৎপাদনের রেকর্ড</li>
+      <li>আয় ও ব্যয়ের হিসাব</li>
+      <li>স্বাস্থ্য ও চিকিৎসার রেকর্ড</li>
+      <li>প্রজনন সংক্রান্ত তথ্য</li>
+      <li>গরুর ছবি (ক্যামেরা বা গ্যালারি থেকে নেওয়া)</li>
+    </ul>
+
+    <h3 style="font-size:17px;font-weight:700;margin:20px 0 10px;color:var(--green-dark);">খ. স্বয়ংক্রিয়ভাবে সংগৃহীত (AdMob)</h3>
+    <p>বিজ্ঞাপন প্রদর্শনের জন্য Google AdMob নিচের তথ্য সংগ্রহ করতে পারে:</p>
+    <table class="data-table">
+      <thead>
+        <tr><th>তথ্যের ধরন</th><th>উদ্দেশ্য</th><th>আমরা দেখি?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Advertising ID (বিজ্ঞাপন শনাক্তকারী)</td><td>প্রাসঙ্গিক বিজ্ঞাপন দেখানো</td><td class="badge-no">না</td></tr>
+        <tr><td>ডিভাইসের মডেল ও OS সংস্করণ</td><td>বিজ্ঞাপনের সামঞ্জস্য</td><td class="badge-no">না</td></tr>
+        <tr><td>আনুমানিক অবস্থান (IP ভিত্তিক)</td><td>স্থানীয় বিজ্ঞাপন দেখানো</td><td class="badge-no">না</td></tr>
+        <tr><td>অ্যাপ ব্যবহারের সাধারণ তথ্য</td><td>বিজ্ঞাপন পারফরম্যান্স</td><td class="badge-no">না</td></tr>
+      </tbody>
+    </table>
+    <p>এই তথ্যগুলো সরাসরি Google দ্বারা পরিচালিত হয়। আমরা এই তথ্য দেখি না বা সংরক্ষণ করি না।</p>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="policy-section" id="s3">
+    <h2><div class="sec-icon">💾</div>৩. তথ্য কীভাবে সংরক্ষণ হয়</h2>
+    <div class="highlight-box">
+      আপনার সব খামার ডেটা <strong>SQLite</strong> ডেটাবেজে আপনার ফোনের ভেতরে সংরক্ষিত থাকে। অ্যাপ আনইনস্টল করলে সব ডেটা মুছে যায়।
+    </div>
+    <ul>
+      <li>ডেটা কোনো ক্লাউড সার্ভারে পাঠানো হয় না</li>
+      <li>ডেটা এনক্রিপ্ট করা হয় Android এর ডিফল্ট নিরাপত্তায়</li>
+      <li>ইন্টারনেট সংযোগ ছাড়াও সব তথ্য নিরাপদ থাকে</li>
+      <li>ব্যাকআপ করতে চাইলে ম্যানুয়ালি ফাইল কপি করতে হবে</li>
+    </ul>
+    <div class="warning-box">
+      ⚠️ <strong>গুরুত্বপূর্ণ:</strong> ফোন হারিয়ে গেলে বা রিসেট দিলে ডেটা ফিরে পাওয়া যাবে না। নিয়মিত ব্যাকআপ রাখার পরামর্শ দেওয়া হচ্ছে।
+    </div>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="policy-section" id="s4">
+    <h2><div class="sec-icon">📢</div>৪. বিজ্ঞাপন (Google AdMob)</h2>
+    <p>অ্যাপটি বিনামূল্যে রাখার জন্য আমরা <strong>Google AdMob</strong> ব্যবহার করি। AdMob অ্যাপের মধ্যে বিজ্ঞাপন দেখায়।</p>
+    <ul>
+      <li class="dot">AdMob Google-এর নিজস্ব গোপনীয়তা নীতি অনুযায়ী পরিচালিত হয়</li>
+      <li class="dot">AdMob বিজ্ঞাপন আইডি ও ডিভাইস তথ্য ব্যবহার করে প্রাসঙ্গিক বিজ্ঞাপন দেখায়</li>
+      <li class="dot">আপনি ফোনের সেটিংস থেকে "Opt out of interest-based ads" বন্ধ করতে পারেন</li>
+    </ul>
+    <p>Google-এর গোপনীয়তা নীতি: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;">policies.google.com/privacy</a></p>
+    <p>Google বিজ্ঞাপন সেটিংস: <a href="https://adssettings.google.com" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;">adssettings.google.com</a></p>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="policy-section" id="s5">
+    <h2><div class="sec-icon">🔐</div>৫. অনুমতি (Permissions)</h2>
+    <p>অ্যাপটি নিচের Android অনুমতি চায়:</p>
+    <table class="data-table">
+      <thead>
+        <tr><th>অনুমতি</th><th>কারণ</th><th>বাধ্যতামূলক?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>INTERNET</td><td>বিজ্ঞাপন লোড করতে (AdMob)</td><td class="badge-yes">হ্যাঁ</td></tr>
+        <tr><td>CAMERA</td><td>গরুর ছবি তুলতে</td><td class="badge-no">ঐচ্ছিক</td></tr>
+        <tr><td>READ_MEDIA_IMAGES</td><td>গ্যালারি থেকে গরুর ছবি বেছে নিতে (Android 13+)</td><td class="badge-no">ঐচ্ছিক</td></tr>
+        <tr><td>READ_EXTERNAL_STORAGE</td><td>পুরনো Android-এ গ্যালারি অ্যাক্সেস</td><td class="badge-no">ঐচ্ছিক</td></tr>
+      </tbody>
+    </table>
+    <p>ক্যামেরা ও গ্যালারির অনুমতি না দিলেও অ্যাপের মূল কার্যকারিতা সম্পূর্ণ চলবে।</p>
+  </div>
+
+  <!-- Section 6 -->
+  <div class="policy-section" id="s6">
+    <h2><div class="sec-icon">🤝</div>৬. তৃতীয় পক্ষের সাথে তথ্য শেয়ার</h2>
+    <p>আমরা আপনার খামারের কোনো তথ্য কোনো তৃতীয় পক্ষের সাথে শেয়ার করি না, বিক্রি করি না বা ভাড়া দিই না।</p>
+    <ul>
+      <li class="cross">আমরা আপনার তথ্য বিক্রি করি না</li>
+      <li class="cross">আমরা আপনার তথ্য কোনো কোম্পানিকে দিই না</li>
+      <li class="cross">আমরা আপনার তথ্য বিজ্ঞাপনের জন্য ব্যবহার করি না</li>
+    </ul>
+    <p>শুধুমাত্র Google AdMob তাদের নিজস্ব নীতি অনুযায়ী বিজ্ঞাপন সংক্রান্ত তথ্য প্রক্রিয়া করে, যা আমাদের নিয়ন্ত্রণের বাইরে।</p>
+  </div>
+
+  <!-- Section 7 -->
+  <div class="policy-section" id="s7">
+    <h2><div class="sec-icon">👶</div>৭. শিশুদের গোপনীয়তা</h2>
+    <p>আমার খামার অ্যাপ ১৩ বছরের কম বয়সী শিশুদের জন্য নয়। আমরা জেনেশুনে শিশুদের কাছ থেকে কোনো ব্যক্তিগত তথ্য সংগ্রহ করি না।</p>
+    <p>যদি আপনি মনে করেন আপনার সন্তান আমাদের অ্যাপ ব্যবহার করছে এবং কোনো ব্যক্তিগত তথ্য দিয়েছে, তাহলে আমাদের সাথে যোগাযোগ করুন।</p>
+  </div>
+
+  <!-- Section 8 -->
+  <div class="policy-section" id="s8">
+    <h2><div class="sec-icon">⚖️</div>৮. আপনার অধিকার</h2>
+    <p>আপনার ডেটার ব্যাপারে আপনার সম্পূর্ণ নিয়ন্ত্রণ আছে:</p>
+    <ul>
+      <li><strong>দেখার অধিকার:</strong> অ্যাপের মধ্যেই সব ডেটা দেখতে পারবেন</li>
+      <li><strong>মুছে ফেলার অধিকার:</strong> অ্যাপ থেকে যেকোনো রেকর্ড মুছতে পারবেন, অথবা অ্যাপ আনইনস্টল করলে সব ডেটা মুছে যাবে</li>
+      <li><strong>সংশোধনের অধিকার:</strong> যেকোনো সময় তথ্য আপডেট করতে পারবেন</li>
+      <li><strong>AdMob অপ্ট-আউট:</strong> Android সেটিংস → Google → বিজ্ঞাপন → "Opt out of Ads Personalization" চালু করুন</li>
+    </ul>
+  </div>
+
+  <!-- Section 9 -->
+  <div class="policy-section" id="s9">
+    <h2><div class="sec-icon">🔄</div>৯. নীতি পরিবর্তন</h2>
+    <p>আমরা প্রয়োজনে এই গোপনীয়তা নীতি আপডেট করতে পারি। পরিবর্তন হলে:</p>
+    <ul>
+      <li>এই পেজে সর্বশেষ আপডেটের তারিখ পরিবর্তন হবে</li>
+      <li>বড় পরিবর্তন হলে অ্যাপের মধ্যে নোটিশ দেওয়া হবে</li>
+    </ul>
+    <p>নিয়মিত এই পেজ চেক করার পরামর্শ দেওয়া হচ্ছে।</p>
+  </div>
+
+  <!-- Section 10 -->
+  <div class="policy-section" id="s10">
+    <h2><div class="sec-icon">📧</div>১০. যোগাযোগ করুন</h2>
+    <p>গোপনীয়তা নীতি সম্পর্কে কোনো প্রশ্ন থাকলে আমাদের সাথে যোগাযোগ করুন:</p>
+    <div class="contact-card">
+      <div class="contact-row">
+        <div class="contact-icon" style="background:#E8F5EC;">👤</div>
+        <div><div class="contact-label">ডেভেলপার</div><div class="contact-value">সাগর আহমেদ</div></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon" style="background:#E3F2FD;">🌐</div>
+        <div><div class="contact-label">প্রতিষ্ঠান</div><div class="contact-value"><a href="https://gorurhaat.com" target="_blank" rel="noopener">Gorurhaat.com</a></div></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon" style="background:#FFF3E0;">📧</div>
+        <div><div class="contact-label">ইমেইল</div><div class="contact-value"><a href="mailto:support@gorurhaat.com">support@gorurhaat.com</a></div></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon" style="background:#FCE4EC;">📱</div>
+        <div><div class="contact-label">অ্যাপ</div><div class="contact-value">আমার খামার — ডেইরি ফার্ম ম্যানেজমেন্ট</div></div>
+      </div>
+    </div>
+  </div>
+
+  <a href="#" class="back-to-top">↑ উপরে যান</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-brand-logo">
+        <div class="footer-brand-logo-icon">🌿</div>
+        <span class="footer-brand-name">আমার খামার</span>
+      </div>
+      <p>বাংলাদেশের ডেইরি কৃষকদের জন্য তৈরি স্মার্ট ফার্ম ম্যানেজমেন্ট অ্যাপ। সম্পূর্ণ বাংলায়, সম্পূর্ণ অফলাইনে।</p>
+    </div>
+    <div class="footer-col">
+      <h4>ফিচার</h4>
+      <ul>
+        <li><a href="index.html#features">গরু ব্যবস্থাপনা</a></li>
+        <li><a href="index.html#features">দুধ রেকর্ড</a></li>
+        <li><a href="index.html#features">আয়-ব্যয় হিসাব</a></li>
+        <li><a href="index.html#features">স্বাস্থ্য রেকর্ড</a></li>
+        <li><a href="index.html#features">প্রজনন ব্যবস্থাপনা</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>অ্যাপ</h4>
+      <ul>
+        <li><a href="index.html#how">কীভাবে কাজ করে</a></li>
+        <li><a href="index.html#benefits">সুবিধা</a></li>
+        <li><a href="index.html#download">ডাউনলোড</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>আইনি</h4>
+      <ul>
+        <li><a href="privacy.html" style="color:#fff;">গোপনীয়তা নীতি</a></li>
+        <li><a href="mailto:support@gorurhaat.com">যোগাযোগ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© ২০২৫ আমার খামার। বাংলাদেশের কৃষকদের জন্য ❤️ দিয়ে তৈরি।</p>
+    <p>সকল কৃষক ভাইদের প্রতি শুভেচ্ছা 🌿</p>
+  </div>
+</footer>
+
+<script>
+  /* Hamburger menu */
+  const burger = document.getElementById('navBurger');
+  const drawer = document.getElementById('mobileDrawer');
+  function toggleMenu(open) {
+    burger.classList.toggle('open', open);
+    drawer.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  burger.addEventListener('click', () => toggleMenu(!drawer.classList.contains('open')));
+  burger.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') toggleMenu(!drawer.classList.contains('open')); });
+  drawer.querySelectorAll('a').forEach(link => link.addEventListener('click', () => toggleMenu(false)));
+  document.addEventListener('click', e => {
+    if (drawer.classList.contains('open') && !drawer.contains(e.target) && !burger.contains(e.target)) toggleMenu(false);
+  });
+  window.addEventListener('resize', () => { if (window.innerWidth > 900) toggleMenu(false); });
+</script>
+</body>
+</html>

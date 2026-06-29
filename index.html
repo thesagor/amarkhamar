@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>আমার খামার – ডেইরি ফার্ম ম্যানেজমেন্ট অ্যাপ</title>
+  <meta name="description" content="আমার খামার – বাংলাদেশের কৃষকদের জন্য সেরা ডেইরি ফার্ম ম্যানেজমেন্ট অ্যাপ। গরু, দুধ, আয়-ব্যয় সব একটি অ্যাপে।" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #F0FFF4 0%, #E8F5EC 40%, #DCEEE4 100%);
+      display: flex; align-items: center;
+      padding: 100px 6% 60px;
+      gap: 60px;
+    }
+    .hero-content { flex: 1; max-width: 580px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-light); border: 1px solid rgba(45,134,89,.25);
+      border-radius: 20px; padding: 6px 14px; margin-bottom: 24px;
+    }
+    .hero-badge-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+    .hero-badge span { font-size: 13px; font-weight: 600; color: var(--green-dark); }
+
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 58px);
+      font-weight: 700; line-height: 1.15;
+      color: var(--green-dark); margin-bottom: 8px;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(90deg, var(--green), var(--green-mid));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-subtitle {
+      font-size: clamp(17px, 2.2vw, 22px); color: var(--text-muted);
+      margin-bottom: 24px; line-height: 1.6; font-weight: 400;
+    }
+    .hero-tagline {
+      font-size: 15px; color: var(--text); background: var(--white);
+      border-left: 4px solid var(--green); border-radius: 0 8px 8px 0;
+      padding: 12px 18px; margin-bottom: 36px; box-shadow: var(--shadow);
+    }
+    .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: #fff; border: none; border-radius: 28px;
+      padding: 16px 32px; font-size: 16px; font-weight: 700;
+      cursor: pointer; font-family: inherit; text-decoration: none;
+      box-shadow: 0 6px 20px rgba(45,134,89,.35);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(45,134,89,.4); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--white); color: var(--green);
+      border: 2px solid var(--green); border-radius: 28px;
+      padding: 14px 28px; font-size: 16px; font-weight: 600;
+      cursor: pointer; font-family: inherit; text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+    .btn-secondary:hover { background: var(--green-light); }
+    .hero-stats { display: flex; gap: 28px; margin-top: 40px; flex-wrap: wrap; }
+    .hero-stat { text-align: center; }
+    .hero-stat-num { font-size: 28px; font-weight: 700; color: var(--green); }
+    .hero-stat-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    /* ── PHONE MOCKUP ── */
+    .hero-visual { flex: 1; display: flex; justify-content: center; align-items: center; }
+    .phone-wrap {
+      position: relative; width: 280px;
+      filter: drop-shadow(0 32px 64px rgba(45,134,89,.25));
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+    .phone {
+      width: 100%; border-radius: 36px; background: #1A1A1A;
+      padding: 14px; border: 1px solid rgba(255,255,255,.1);
+    }
+    .phone-screen { border-radius: 26px; overflow: hidden; background: linear-gradient(160deg, #E8F5EC, #F0F2F5); min-height: 520px; }
+    .phone-header { background: linear-gradient(135deg, #2D8659, #1F5D3D); padding: 20px 16px 16px; }
+    .phone-header-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .phone-title { color: #fff; font-weight: 700; font-size: 16px; }
+    .phone-sub   { color: rgba(255,255,255,.7); font-size: 11px; margin-top: 2px; }
+    .phone-notif {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: rgba(255,255,255,.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; position: relative;
+    }
+    .notif-dot {
+      position: absolute; top: -2px; right: -2px;
+      width: 10px; height: 10px; background: #FF5252;
+      border-radius: 50%; border: 2px solid #1F5D3D;
+    }
+    .phone-body { padding: 14px 12px; display: flex; flex-direction: column; gap: 10px; }
+    .phone-greeting {
+      background: rgba(45,134,89,.09); border: 1px solid rgba(45,134,89,.15);
+      border-radius: 12px; padding: 10px 12px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .phone-greeting-icon { width: 36px; height: 36px; background: rgba(45,134,89,.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .phone-greeting-text { font-size: 12px; font-weight: 600; color: #1A1C1A; }
+    .phone-greeting-sub  { font-size: 10px; color: #5D665D; margin-top: 1px; }
+    .phone-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .phone-card { background: #fff; border-radius: 12px; padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    .phone-card-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 6px; }
+    .phone-card-label { font-size: 10px; color: #5D665D; }
+    .phone-card-value { font-size: 18px; font-weight: 700; margin-top: 2px; }
+    .phone-card-sub   { font-size: 9px; color: #5D665D; }
+    .phone-section-title { font-size: 11px; font-weight: 700; color: #1A1C1A; margin-bottom: 4px; }
+    .phone-alert {
+      background: #fff; border-radius: 10px; padding: 10px 12px;
+      display: flex; align-items: center; gap: 10px;
+      border-left: 3px solid var(--orange); box-shadow: 0 2px 6px rgba(0,0,0,.05);
+    }
+    .phone-alert-icon { font-size: 16px; }
+    .phone-alert-text { font-size: 11px; font-weight: 600; color: #1A1C1A; }
+    .phone-alert-sub  { font-size: 10px; color: #5D665D; }
+    .phone-quick { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; }
+    .phone-quick-btn { background: #fff; border-radius: 10px; padding: 8px 4px; display: flex; flex-direction: column; align-items: center; gap: 4px; box-shadow: 0 2px 6px rgba(0,0,0,.05); }
+    .phone-quick-btn .qi { font-size: 18px; }
+    .phone-quick-btn span { font-size: 9px; color: #5D665D; font-weight: 600; }
+    .phone-navbar { background: #fff; display: flex; justify-content: space-around; padding: 8px 0; border-top: 1px solid #E0E4E0; }
+    .phone-nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .phone-nav-item .ni { font-size: 18px; }
+    .phone-nav-item span { font-size: 9px; color: #5D665D; }
+    .phone-nav-item.active span { color: #2D8659; font-weight: 600; }
+
+    /* floating cards */
+    .float-card {
+      position: absolute; background: #fff; border-radius: 12px;
+      padding: 10px 14px; box-shadow: 0 8px 24px rgba(0,0,0,.12);
+      display: flex; align-items: center; gap: 10px;
+      animation: float 4s ease-in-out infinite;
+    }
+    .float-card.card-1 { top: 40px; left: -60px; animation-delay: .5s; }
+    .float-card.card-2 { bottom: 80px; right: -60px; animation-delay: 1s; }
+    .float-card .fc-icon { font-size: 22px; }
+    .float-card .fc-text { font-size: 11px; font-weight: 700; color: var(--text); white-space: nowrap; }
+    .float-card .fc-sub  { font-size: 10px; color: var(--text-muted); }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 80px 6%; }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-light); color: var(--green-dark);
+      border-radius: 20px; padding: 5px 14px;
+      font-size: 13px; font-weight: 600; margin-bottom: 16px;
+    }
+    .section-tag::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
+    h2.section-title { font-size: clamp(26px, 3.5vw, 40px); font-weight: 700; color: var(--text); margin-bottom: 14px; line-height: 1.25; }
+    .section-desc { font-size: 17px; color: var(--text-muted); max-width: 600px; line-height: 1.7; }
+    .center { text-align: center; }
+    .center .section-desc { margin: 0 auto; }
+
+    /* ── PROBLEM ── */
+    .problem { background: var(--bg); }
+    .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 48px; }
+    .problem-card { background: var(--white); border-radius: var(--radius); padding: 28px; border: 1px solid var(--border); transition: transform .2s, box-shadow .2s; }
+    .problem-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .problem-icon { font-size: 36px; margin-bottom: 14px; }
+    .problem-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .problem-card p  { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+    /* ── FEATURES ── */
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 52px; }
+    .feature-card {
+      background: var(--white); border-radius: var(--radius); padding: 30px;
+      border: 1px solid var(--border); transition: transform .25s, box-shadow .25s;
+      position: relative; overflow: hidden;
+    }
+    .feature-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 70%, var(--fc-bg, var(--green-light)) 100%);
+      opacity: 0; transition: opacity .3s;
+    }
+    .feature-card:hover::before { opacity: 1; }
+    .feature-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .feature-icon-wrap { width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 18px; }
+    .feature-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .feature-card p  { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+    .feature-card ul { margin-top: 12px; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .feature-card ul li { font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+    .feature-card ul li::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 12px; flex-shrink: 0; }
+
+    /* ── HOW IT WORKS ── */
+    .how { background: var(--bg); }
+    .steps { display: flex; gap: 0; margin-top: 52px; position: relative; flex-wrap: wrap; }
+    .steps::before { content: ''; position: absolute; top: 32px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--green), var(--green-mid)); z-index: 0; }
+    .step { flex: 1; min-width: 200px; text-align: center; position: relative; z-index: 1; padding: 0 20px; }
+    .step-num { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--green), var(--green-dark)); color: #fff; font-size: 24px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 4px 16px rgba(45,134,89,.3); }
+    .step h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .step p  { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── BENEFITS ── */
+    .benefits-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 52px; }
+    .benefit-list { display: flex; flex-direction: column; gap: 20px; }
+    .benefit-item { display: flex; gap: 16px; align-items: flex-start; background: var(--white); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); transition: transform .2s, box-shadow .2s; }
+    .benefit-item:hover { transform: translateX(6px); box-shadow: var(--shadow); }
+    .benefit-icon { width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+    .benefit-item h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .benefit-item p  { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+    .benefits-img { background: linear-gradient(160deg, var(--green-light), #d4edda); border-radius: 24px; padding: 40px; display: flex; flex-direction: column; gap: 16px; box-shadow: var(--shadow-lg); }
+    .b-row { background: var(--white); border-radius: 14px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; }
+    .b-row-left { display: flex; align-items: center; gap: 12px; }
+    .b-row-icon  { font-size: 22px; }
+    .b-row-title { font-size: 13px; font-weight: 700; }
+    .b-row-sub   { font-size: 11px; color: var(--text-muted); }
+    .b-row-val   { font-size: 17px; font-weight: 700; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials { background: var(--bg); }
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 48px; }
+    .testi-card { background: var(--white); border-radius: var(--radius); padding: 28px; border: 1px solid var(--border); }
+    .testi-stars { color: #FFC107; font-size: 18px; margin-bottom: 14px; letter-spacing: 2px; }
+    .testi-text  { font-size: 15px; color: var(--text); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--green), var(--green-dark)); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+    .testi-name { font-weight: 700; font-size: 14px; }
+    .testi-loc  { font-size: 12px; color: var(--text-muted); }
+
+    /* ── OFFLINE BANNER ── */
+    .offline-banner { background: linear-gradient(135deg, var(--green-dark), #134A2E); color: #fff; padding: 60px 6%; text-align: center; }
+    .offline-icon { font-size: 52px; margin-bottom: 16px; }
+    .offline-banner h2 { font-size: clamp(24px, 3vw, 36px); font-weight: 700; margin-bottom: 14px; }
+    .offline-banner p { font-size: 17px; opacity: .85; max-width: 560px; margin: 0 auto 32px; line-height: 1.7; }
+    .offline-pills { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .offline-pill { background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); border-radius: 20px; padding: 8px 18px; font-size: 14px; font-weight: 600; }
+
+    /* ── DOWNLOAD ── */
+    .download { background: linear-gradient(160deg, #F0FFF4, var(--green-light)); }
+    .download-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .download-features { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+    .dl-feat { display: flex; align-items: center; gap: 12px; }
+    .dl-feat-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+    .dl-feat span { font-size: 14px; color: var(--text-muted); }
+    .dl-feat b    { color: var(--text); }
+    .apk-card { background: var(--white); border-radius: 24px; padding: 36px; box-shadow: var(--shadow-lg); text-align: center; }
+    .apk-icon  { font-size: 64px; margin-bottom: 12px; }
+    .apk-title { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .apk-sub   { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; }
+    .apk-btn   { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--green), var(--green-dark)); color: #fff; border: none; border-radius: 28px; padding: 16px 36px; font-size: 17px; font-weight: 700; cursor: pointer; font-family: inherit; text-decoration: none; box-shadow: 0 8px 24px rgba(45,134,89,.35); transition: transform .2s, box-shadow .2s; width: 100%; justify-content: center; }
+    .apk-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(45,134,89,.4); }
+    .apk-meta  { font-size: 12px; color: var(--text-muted); margin-top: 14px; }
+    .apk-badges { display: flex; gap: 10px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+    .apk-badge  { background: var(--green-light); color: var(--green-dark); border-radius: 16px; padding: 5px 12px; font-size: 12px; font-weight: 600; }
+
+    /* ── SCROLL FADE ── */
+    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── PAGE-SPECIFIC RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .hero { flex-direction: column; text-align: center; padding: 90px 5% 52px; gap: 40px; }
+      .hero-content { max-width: 100%; }
+      .hero-buttons { justify-content: center; }
+      .hero-stats   { justify-content: center; }
+      .hero-tagline { text-align: left; }
+      .float-card   { display: none; }
+      .benefits-layout { grid-template-columns: 1fr; }
+      .download-layout { grid-template-columns: 1fr; }
+      .steps { flex-direction: column; gap: 0; }
+      .steps::before { display: none; }
+      .step { display: flex; align-items: flex-start; gap: 20px; text-align: left; padding: 0 0 32px 0; position: relative; }
+      .step:not(:last-child)::after { content: ''; position: absolute; left: 31px; top: 64px; width: 2px; bottom: 0; background: linear-gradient(180deg, var(--green), var(--green-mid)); }
+      .step-num { flex-shrink: 0; margin: 0; width: 64px; height: 64px; }
+      .step > div { padding-top: 6px; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 52px 4%; }
+      .offline-banner { padding: 48px 4%; }
+      .hero { padding: 86px 4% 48px; gap: 32px; }
+      .hero-visual { display: none; }
+      .hero-stats  { gap: 20px; }
+      .hero-stat-num { font-size: 22px; }
+      .hero-buttons { flex-direction: column; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 15px 20px; }
+      .features-grid  { grid-template-columns: 1fr; }
+      .problem-grid   { grid-template-columns: 1fr; }
+      .testi-grid     { grid-template-columns: 1fr; }
+      .step { padding: 0 0 28px 0; }
+      .step-num { width: 52px; height: 52px; font-size: 20px; }
+      .step:not(:last-child)::after { left: 25px; top: 52px; }
+      .benefits-img { padding: 20px; }
+      .b-row { flex-direction: column; gap: 6px; align-items: flex-start; }
+      .offline-pills { gap: 8px; }
+      .offline-pill  { font-size: 13px; padding: 7px 14px; }
+      .apk-card { padding: 28px 20px; }
+    }
+    @media (max-width: 380px) {
+      .hero h1        { font-size: 30px; }
+      .hero-subtitle  { font-size: 16px; }
+      .section-title  { font-size: 24px; }
+      .hero-tagline   { font-size: 13px; }
+      .nav-logo-text  { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-icon">🌿</div>
+    <span class="nav-logo-text">আমার খামার</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">ফিচার</a></li>
+    <li><a href="#how">কীভাবে কাজ করে</a></li>
+    <li><a href="#benefits">সুবিধা</a></li>
+    <li><a href="#download">ডাউনলোড</a></li>
+  </ul>
+  <a href="#download" class="nav-cta">ফ্রি ডাউনলোড করুন</a>
+  <div class="nav-burger" id="navBurger" aria-label="মেনু খুলুন" role="button" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Nav Drawer -->
+<div class="nav-mobile-drawer" id="mobileDrawer">
+  <a href="#features" class="drawer-link">✨ ফিচার</a>
+  <a href="#how"      class="drawer-link">📋 কীভাবে কাজ করে</a>
+  <a href="#benefits" class="drawer-link">💡 সুবিধা</a>
+  <a href="#download" class="drawer-link">📥 ডাউনলোড</a>
+  <a href="privacy.html" class="drawer-link">🔒 গোপনীয়তা নীতি</a>
+  <a href="#download" class="drawer-cta">⬇️ ফ্রি ডাউনলোড করুন</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content fade-up">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      <span>বাংলাদেশের কৃষকদের জন্য তৈরি</span>
+    </div>
+    <h1>
+      আপনার খামার<br>
+      <span class="highlight">স্মার্টভাবে</span> চালান
+    </h1>
+    <p class="hero-subtitle">
+      দুধ রেকর্ড থেকে আয়-ব্যয় হিসাব — সব কিছু এক জায়গায়।<br>
+      ইন্টারনেট ছাড়াই কাজ করে।
+    </p>
+    <div class="hero-tagline">
+      🌾 "যে কৃষক তার তথ্য রাখেন, সে কৃষক এগিয়ে যান" — আমার খামার সেই পথ দেখায়।
+    </div>
+    <div class="hero-buttons">
+      <a href="#download" class="btn-primary">📱 APK ডাউনলোড করুন</a>
+      <a href="#features" class="btn-secondary">✨ ফিচার দেখুন</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">১০০%</div>
+        <div class="hero-stat-label">বিনামূল্যে</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">অফলাইন</div>
+        <div class="hero-stat-label">ইন্টারনেট লাগে না</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">বাংলা</div>
+        <div class="hero-stat-label">সম্পূর্ণ বাংলায়</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual fade-up">
+    <div class="phone-wrap">
+      <div class="float-card card-1">
+        <div class="fc-icon">🥛</div>
+        <div>
+          <div class="fc-text">আজকের দুধ</div>
+          <div class="fc-sub" style="color:#2D8659;font-weight:700;">৪৮ লিটার ✓</div>
+        </div>
+      </div>
+      <div class="float-card card-2">
+        <div class="fc-icon">💰</div>
+        <div>
+          <div class="fc-text">এই মাসে লাভ</div>
+          <div class="fc-sub" style="color:#2D8659;font-weight:700;">৳ ১২,৪০০</div>
+        </div>
+      </div>
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-header">
+            <div class="phone-header-top">
+              <div>
+                <div class="phone-title">আমার খামার 🌿</div>
+                <div class="phone-sub">ড্যাশবোর্ড</div>
+              </div>
+              <div class="phone-notif">🔔<div class="notif-dot"></div></div>
+            </div>
+          </div>
+          <div class="phone-body">
+            <div class="phone-greeting">
+              <div class="phone-greeting-icon">🌞</div>
+              <div>
+                <div class="phone-greeting-text">আল-আমিন ডেইরি ফার্ম – সুপ্রভাত!</div>
+                <div class="phone-greeting-sub">সকালের দুধ রেকর্ড করুন</div>
+              </div>
+            </div>
+            <div class="phone-cards">
+              <div class="phone-card">
+                <div class="phone-card-icon" style="background:#E8F5EC;">🐄</div>
+                <div class="phone-card-label">মোট গরু</div>
+                <div class="phone-card-value" style="color:#2D8659;">১২টি</div>
+                <div class="phone-card-sub">দুধ দেয় ৮টি</div>
+              </div>
+              <div class="phone-card">
+                <div class="phone-card-icon" style="background:#E3F2FD;">💧</div>
+                <div class="phone-card-label">আজকের দুধ</div>
+                <div class="phone-card-value" style="color:#2196F3;">৪৮ লি</div>
+                <div class="phone-card-sub">গড় ৫২ লি/দিন</div>
+              </div>
+            </div>
+            <div class="phone-section-title">সতর্কতা</div>
+            <div class="phone-alert">
+              <div class="phone-alert-icon">⚠️</div>
+              <div>
+                <div class="phone-alert-text">লক্ষ্মী হিট পিরিয়ডে আছে</div>
+                <div class="phone-alert-sub">AI করানোর সময় হয়েছে</div>
+              </div>
+            </div>
+            <div class="phone-section-title">দ্রুত অ্যাকশন</div>
+            <div class="phone-quick">
+              <div class="phone-quick-btn"><div class="qi">🐄</div><span>গরু যোগ</span></div>
+              <div class="phone-quick-btn"><div class="qi">💧</div><span>দুধ রেকর্ড</span></div>
+              <div class="phone-quick-btn"><div class="qi">💵</div><span>আয় যোগ</span></div>
+              <div class="phone-quick-btn"><div class="qi">🏥</div><span>স্বাস্থ্য</span></div>
+            </div>
+          </div>
+          <div class="phone-navbar">
+            <div class="phone-nav-item active"><div class="ni">🏠</div><span>হোম</span></div>
+            <div class="phone-nav-item"><div class="ni">🐄</div><span>গরু</span></div>
+            <div class="phone-nav-item"><div class="ni">💧</div><span>দুধ</span></div>
+            <div class="phone-nav-item"><div class="ni">💰</div><span>অর্থ</span></div>
+            <div class="phone-nav-item"><div class="ni">⚙️</div><span>সেটিংস</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="center fade-up">
+    <div class="section-tag">সমস্যা</div>
+    <h2 class="section-title">খামারি ভাইদের যে সমস্যা হয়</h2>
+    <p class="section-desc">আপনি কি এই সমস্যাগুলোর মুখোমুখি হয়েছেন?</p>
+  </div>
+  <div class="problem-grid">
+    <div class="problem-card fade-up">
+      <div class="problem-icon">📒</div>
+      <h3>খাতায় হিসাব রাখা কঠিন</h3>
+      <p>প্রতিদিনের দুধ, আয়-ব্যয় খাতায় লেখা সময়সাপেক্ষ। খাতা হারিয়ে গেলে সব শেষ।</p>
+    </div>
+    <div class="problem-card fade-up">
+      <div class="problem-icon">🤔</div>
+      <h3>লাভ-ক্ষতি বুঝতে পারেন না</h3>
+      <p>মাস শেষে কত আয় হলো, কত খরচ হলো — সঠিক হিসাব না থাকলে ব্যবসা কোথায় যাচ্ছে বোঝা যায় না।</p>
+    </div>
+    <div class="problem-card fade-up">
+      <div class="problem-icon">💉</div>
+      <h3>টিকা ও চিকিৎসার তারিখ ভুলে যান</h3>
+      <p>গরুর টিকার তারিখ বা ডাক্তারের পরবর্তী ভিজিটের কথা ভুলে গেলে গরুর স্বাস্থ্য ঝুঁকিতে পড়ে।</p>
+    </div>
+    <div class="problem-card fade-up">
+      <div class="problem-icon">🐄</div>
+      <h3>প্রজনন ব্যবস্থাপনা জটিল</h3>
+      <p>গরুর হিট পিরিয়ড, AI, গর্ভধারণ ও প্রত্যাশিত ডেলিভারির তারিখ ট্র্যাক করা কঠিন।</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="center fade-up">
+    <div class="section-tag">ফিচার</div>
+    <h2 class="section-title">একটি অ্যাপে সব সমাধান</h2>
+    <p class="section-desc">আমার খামার আপনার খামারের প্রতিটি দিক পরিচালনা করে — সহজ বাংলা ভাষায়।</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card fade-up" style="--fc-bg:#E8F5EC;">
+      <div class="feature-icon-wrap" style="background:#E8F5EC;">🐄</div>
+      <h3>গরু ব্যবস্থাপনা</h3>
+      <p>প্রতিটি গরুর সম্পূর্ণ তথ্য এক জায়গায় রাখুন।</p>
+      <ul><li>নাম, ট্যাগ, জাত ও লিঙ্গ</li><li>জন্ম ও ক্রয়ের তারিখ</li><li>ক্রয় মূল্য ও ওজন</li><li>বর্তমান স্বাস্থ্যের অবস্থা</li><li>নাম দিয়ে সহজে খোঁজুন</li></ul>
+    </div>
+    <div class="feature-card fade-up" style="--fc-bg:#E3F2FD;">
+      <div class="feature-icon-wrap" style="background:#E3F2FD;">💧</div>
+      <h3>দুধ উৎপাদন রেকর্ড</h3>
+      <p>প্রতিদিনের দুধ সকাল ও সন্ধ্যায় রেকর্ড করুন।</p>
+      <ul><li>সকাল ও সন্ধ্যা সেশন আলাদা</li><li>প্রতিটি গরুর দুধ আলাদা করুন</li><li>তারিখ ভিত্তিক রিপোর্ট</li><li>দৈনিক ও মাসিক গড়</li><li>কাস্টম তারিখ পরিসর</li></ul>
+    </div>
+    <div class="feature-card fade-up" style="--fc-bg:#FFF3E0;">
+      <div class="feature-icon-wrap" style="background:#FFF3E0;">💰</div>
+      <h3>আয়-ব্যয় হিসাব</h3>
+      <p>খামারের সম্পূর্ণ আর্থিক চিত্র দেখুন।</p>
+      <ul><li>আয় ও খরচ আলাদা রেকর্ড</li><li>দুধ, গরু, গোবর বিক্রয়</li><li>খাদ্য, ওষুধ, শ্রমিক খরচ</li><li>লাভ-ক্ষতির চার্ট</li><li>যেকোনো তারিখ পরিসরে ফিল্টার</li></ul>
+    </div>
+    <div class="feature-card fade-up" style="--fc-bg:#FCE4EC;">
+      <div class="feature-icon-wrap" style="background:#FCE4EC;">🏥</div>
+      <h3>স্বাস্থ্য রেকর্ড</h3>
+      <p>প্রতিটি গরুর চিকিৎসার ইতিহাস সংরক্ষণ।</p>
+      <ul><li>রোগের বিবরণ ও ওষুধ</li><li>পশু চিকিৎসকের নাম ও খরচ</li><li>পরবর্তী ভিজিটের রিমাইন্ডার</li><li>ভ্যাকসিনেশন রেকর্ড</li></ul>
+    </div>
+    <div class="feature-card fade-up" style="--fc-bg:#EDE7F6;">
+      <div class="feature-icon-wrap" style="background:#EDE7F6;">🧬</div>
+      <h3>প্রজনন ব্যবস্থাপনা</h3>
+      <p>গরুর প্রজনন চক্র সম্পূর্ণ নিয়ন্ত্রণে রাখুন।</p>
+      <ul><li>হিট পিরিয়ড সনাক্তকরণ</li><li>AI প্রজননের তারিখ</li><li>গর্ভধারণ নিশ্চিতকরণ</li><li>প্রত্যাশিত ডেলিভারির তারিখ</li></ul>
+    </div>
+    <div class="feature-card fade-up" style="--fc-bg:#E8F5EC;">
+      <div class="feature-icon-wrap" style="background:#E8F5EC;">🔔</div>
+      <h3>স্মার্ট সতর্কতা</h3>
+      <p>গুরুত্বপূর্ণ কাজ কখনো ভুলবেন না।</p>
+      <ul><li>হিট পিরিয়ডের রিমাইন্ডার</li><li>ডেলিভারির আগাম সতর্কতা</li><li>টিকার তারিখ মনে করিয়ে দেয়</li><li>ডাক্তারের ভিজিটের নোটিফিকেশন</li><li>জরুরি ও সাধারণ অগ্রাধিকার</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="center fade-up">
+    <div class="section-tag">কীভাবে কাজ করে</div>
+    <h2 class="section-title">মাত্র ৪টি ধাপে শুরু করুন</h2>
+    <p class="section-desc">প্রযুক্তিগত জ্ঞান ছাড়াও সহজে ব্যবহার করা যায়।</p>
+  </div>
+  <div class="steps">
+    <div class="step fade-up"><div class="step-num">১</div><div><h3>অ্যাপ ডাউনলোড করুন</h3><p>APK ফাইলটি ডাউনলোড করে আপনার Android ফোনে ইনস্টল করুন।</p></div></div>
+    <div class="step fade-up"><div class="step-num">২</div><div><h3>খামারের তথ্য দিন</h3><p>আপনার নাম, খামারের নাম ও অন্যান্য তথ্য একবার সেট করুন।</p></div></div>
+    <div class="step fade-up"><div class="step-num">৩</div><div><h3>গরু যোগ করুন</h3><p>প্রতিটি গরুর নাম, ট্যাগ, জাত ও স্ট্যাটাস অ্যাপে লিখুন।</p></div></div>
+    <div class="step fade-up"><div class="step-num">৪</div><div><h3>প্রতিদিন ব্যবহার করুন</h3><p>দুধ রেকর্ড, আয়-ব্যয় লিখুন এবং স্বয়ংক্রিয় রিপোর্ট উপভোগ করুন।</p></div></div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section id="benefits">
+  <div class="fade-up">
+    <div class="section-tag">কেন ব্যবহার করবেন</div>
+    <h2 class="section-title">আমার খামার ব্যবহারে কী লাভ?</h2>
+    <p class="section-desc">ডেটা-ভিত্তিক সিদ্ধান্তে আপনার খামার আরো লাভজনক হবে।</p>
+  </div>
+  <div class="benefits-layout">
+    <div class="benefit-list">
+      <div class="benefit-item fade-up"><div class="benefit-icon" style="background:#E8F5EC;">📊</div><div><h3>সঠিক হিসাব, সঠিক সিদ্ধান্ত</h3><p>মাসিক আয়-ব্যয়ের সম্পূর্ণ চিত্র দেখে বুঝুন খামারে কোথায় খরচ বেশি এবং কীভাবে লাভ বাড়ানো যায়।</p></div></div>
+      <div class="benefit-item fade-up"><div class="benefit-icon" style="background:#E3F2FD;">⏰</div><div><h3>সময় বাঁচান</h3><p>খাতায় হিসাব লেখার বদলে কয়েক সেকেন্ডে অ্যাপে রেকর্ড করুন।</p></div></div>
+      <div class="benefit-item fade-up"><div class="benefit-icon" style="background:#FFF3E0;">🔔</div><div><h3>কোনো কাজ মিস হবে না</h3><p>টিকা, ডাক্তারের ভিজিট, হিট পিরিয়ড — স্বয়ংক্রিয় সতর্কতায় সব মনে থাকবে।</p></div></div>
+      <div class="benefit-item fade-up"><div class="benefit-icon" style="background:#FCE4EC;">📈</div><div><h3>উৎপাদন বৃদ্ধি করুন</h3><p>প্রতিটি গরুর দুধ উৎপাদনের ট্রেন্ড দেখে দুর্বল গরু চিহ্নিত করুন।</p></div></div>
+    </div>
+    <div class="benefits-img fade-up">
+      <div class="b-row"><div class="b-row-left"><div class="b-row-icon">🥛</div><div><div class="b-row-title">মাসিক দুধ উৎপাদন</div><div class="b-row-sub">জুন, ২০২৫</div></div></div><div class="b-row-val" style="color:#2196F3;">১,৪৪০ লি</div></div>
+      <div class="b-row"><div class="b-row-left"><div class="b-row-icon">💰</div><div><div class="b-row-title">মোট আয়</div><div class="b-row-sub">দুধ + গরু বিক্রয়</div></div></div><div class="b-row-val" style="color:#2D8659;">৳ ৭২,০০০</div></div>
+      <div class="b-row"><div class="b-row-left"><div class="b-row-icon">🧾</div><div><div class="b-row-title">মোট খরচ</div><div class="b-row-sub">খাদ্য + ওষুধ + শ্রমিক</div></div></div><div class="b-row-val" style="color:#E53935;">৳ ৪৮,৫০০</div></div>
+      <div class="b-row" style="background:#E8F5EC;"><div class="b-row-left"><div class="b-row-icon">📈</div><div><div class="b-row-title">নিট লাভ</div><div class="b-row-sub">এই মাসে</div></div></div><div class="b-row-val" style="color:#2D8659;font-size:22px;">৳ ২৩,৫০০</div></div>
+      <div class="b-row"><div class="b-row-left"><div class="b-row-icon">🐄</div><div><div class="b-row-title">মোট গরু</div><div class="b-row-sub">দুধ দিচ্ছে ৮টি</div></div></div><div class="b-row-val" style="color:#2D8659;">১২টি</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFLINE BANNER -->
+<div class="offline-banner fade-up">
+  <div class="offline-icon">📡</div>
+  <h2>ইন্টারনেট ছাড়াও চলে!</h2>
+  <p>গ্রামে নেটওয়ার্ক নেই? কোনো সমস্যা নেই। আমার খামার সম্পূর্ণ অফলাইনে কাজ করে। আপনার সব ডেটা আপনার ফোনেই সুরক্ষিত থাকে।</p>
+  <div class="offline-pills">
+    <div class="offline-pill">✅ ইন্টারনেট লাগে না</div>
+    <div class="offline-pill">✅ ডেটা ফোনে সংরক্ষিত</div>
+    <div class="offline-pill">✅ প্রাইভেসি সুরক্ষিত</div>
+    <div class="offline-pill">✅ দ্রুত ও নির্ভরযোগ্য</div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="center fade-up">
+    <div class="section-tag">কৃষকদের মতামত</div>
+    <h2 class="section-title">খামারিরা কী বলছেন</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card fade-up">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"আগে খাতায় হিসাব রাখতাম, মাস শেষে মিলাতে পারতাম না। এখন অ্যাপে সব রেকর্ড থাকে, একটা বোতাম টিপলেই পুরো মাসের হিসাব দেখা যায়।"</p>
+      <div class="testi-author"><div class="testi-avatar">আ</div><div><div class="testi-name">আব্দুল করিম</div><div class="testi-loc">🌍 রাজশাহী, বাংলাদেশ</div></div></div>
+    </div>
+    <div class="testi-card fade-up">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"গরুর টিকার তারিখ ভুলে যেতাম। এখন অ্যাপ নিজেই মনে করিয়ে দেয়। গরুর স্বাস্থ্য আগের চেয়ে ভালো।"</p>
+      <div class="testi-author"><div class="testi-avatar">ম</div><div><div class="testi-name">মোঃ রফিকুল ইসলাম</div><div class="testi-loc">🌍 সিরাজগঞ্জ, বাংলাদেশ</div></div></div>
+    </div>
+    <div class="testi-card fade-up">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"সম্পূর্ণ বাংলায় — এটাই সবচেয়ে ভালো দিক। আমার মতো কম পড়াশোনা জানা কৃষকও সহজে ব্যবহার করতে পারি।"</p>
+      <div class="testi-author"><div class="testi-avatar">ন</div><div><div class="testi-name">নূর মোহাম্মদ</div><div class="testi-loc">🌍 পাবনা, বাংলাদেশ</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section class="download" id="download">
+  <div class="download-layout">
+    <div class="fade-up">
+      <div class="section-tag">ডাউনলোড</div>
+      <h2 class="section-title">আজই শুরু করুন —<br>সম্পূর্ণ বিনামূল্যে</h2>
+      <p class="section-desc">Android ফোনে এক ক্লিকে ইনস্টল করুন।</p>
+      <div class="download-features">
+        <div class="dl-feat"><div class="dl-feat-icon">📱</div><span><b>Android 5.0+</b> সাপোর্ট করে</span></div>
+        <div class="dl-feat"><div class="dl-feat-icon">📦</div><span>ফাইল সাইজ মাত্র <b>~50 MB</b></span></div>
+        <div class="dl-feat"><div class="dl-feat-icon">🔒</div><span>কোনো <b>অ্যাকাউন্ট বা লগইন</b> লাগে না</span></div>
+        <div class="dl-feat"><div class="dl-feat-icon">🌐</div><span><b>ইন্টারনেট</b> ছাড়াই কাজ করে</span></div>
+        <div class="dl-feat"><div class="dl-feat-icon">🆓</div><span>সম্পূর্ণ <b>বিনামূল্যে</b> — কোনো সাবস্ক্রিপশন নেই</span></div>
+      </div>
+    </div>
+    <div class="apk-card fade-up">
+      <div class="apk-icon">📱</div>
+      <div class="apk-title">আমার খামার</div>
+      <div class="apk-sub">ডেইরি ফার্ম ম্যানেজমেন্ট অ্যাপ · সংস্করণ ২.০.০</div>
+      <a href="../build/app/outputs/flutter-apk/app-release.apk" class="apk-btn" download>⬇️ APK ডাউনলোড করুন</a>
+      <div class="apk-meta">Android 5.0+ · ৫০ MB · বাংলা</div>
+      <div class="apk-badges">
+        <div class="apk-badge">✅ অফলাইন</div>
+        <div class="apk-badge">✅ বিনামূল্যে</div>
+        <div class="apk-badge">✅ বাংলা</div>
+        <div class="apk-badge">✅ নিরাপদ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-brand-logo">
+        <div class="footer-brand-logo-icon">🌿</div>
+        <span class="footer-brand-name">আমার খামার</span>
+      </div>
+      <p>বাংলাদেশের ডেইরি কৃষকদের জন্য তৈরি স্মার্ট ফার্ম ম্যানেজমেন্ট অ্যাপ। সম্পূর্ণ বাংলায়, সম্পূর্ণ অফলাইনে।</p>
+    </div>
+    <div class="footer-col">
+      <h4>ফিচার</h4>
+      <ul>
+        <li><a href="#features">গরু ব্যবস্থাপনা</a></li>
+        <li><a href="#features">দুধ রেকর্ড</a></li>
+        <li><a href="#features">আয়-ব্যয় হিসাব</a></li>
+        <li><a href="#features">স্বাস্থ্য রেকর্ড</a></li>
+        <li><a href="#features">প্রজনন ব্যবস্থাপনা</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>অ্যাপ</h4>
+      <ul>
+        <li><a href="#how">কীভাবে কাজ করে</a></li>
+        <li><a href="#benefits">সুবিধা</a></li>
+        <li><a href="#download">ডাউনলোড</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>প্রযুক্তি</h4>
+      <ul>
+        <li><a href="#">Flutter / Dart</a></li>
+        <li><a href="#">SQLite অফলাইন</a></li>
+        <li><a href="#">Android 5.0+</a></li>
+        <li><a href="#">HindSiliguri ফন্ট</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>আইনি</h4>
+      <ul>
+        <li><a href="privacy.html">গোপনীয়তা নীতি</a></li>
+        <li><a href="mailto:support@gorurhaat.com">যোগাযোগ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© ২০২৫ আমার খামার। বাংলাদেশের কৃষকদের জন্য ❤️ দিয়ে তৈরি।</p>
+    <p>সকল কৃষক ভাইদের প্রতি শুভেচ্ছা 🌿</p>
+  </div>
+</footer>
+
+<script>
+  /* Scroll fade-in */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  /* Stagger card animations */
+  document.querySelectorAll('.features-grid .feature-card, .problem-grid .problem-card, .testi-grid .testi-card, .step')
+    .forEach((card, i) => { card.style.transitionDelay = (i * 0.08) + 's'; });
+
+  /* Hamburger menu */
+  const burger = document.getElementById('navBurger');
+  const drawer = document.getElementById('mobileDrawer');
+  function toggleMenu(open) {
+    burger.classList.toggle('open', open);
+    drawer.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  burger.addEventListener('click', () => toggleMenu(!drawer.classList.contains('open')));
+  burger.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') toggleMenu(!drawer.classList.contains('open')); });
+  drawer.querySelectorAll('a').forEach(link => link.addEventListener('click', () => toggleMenu(false)));
+  document.addEventListener('click', e => {
+    if (drawer.classList.contains('open') && !drawer.contains(e.target) && !burger.contains(e.target)) toggleMenu(false);
+  });
+  window.addEventListener('resize', () => { if (window.innerWidth > 900) toggleMenu(false); });
+
+  /* Smooth scroll */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      const href = anchor.getAttribute('href');
+      if (href === '#') return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - document.querySelector('nav').offsetHeight - 8;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  /* Active nav highlight */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY + 100;
+    sections.forEach(section => {
+      if (section.offsetTop <= scrollY && section.offsetTop + section.offsetHeight > scrollY) {
+        navLinks.forEach(link => {
+          link.style.color = link.getAttribute('href') === '#' + section.id ? '#2D8659' : '';
+          link.style.fontWeight = link.getAttribute('href') === '#' + section.id ? '700' : '';
+        });
+      }
+    });
+  });
+</script>
+</body>
+</html>
