@@ -142,6 +142,7 @@ footer {
   align-items: center; flex-wrap: wrap; gap: 10px;
 }
 .footer-bottom p { font-size: 12px; }
+.footer-attribution { font-size: 11px; opacity: .8; }
 
 /* ── SHARED RESPONSIVE ──────────────────────────── */
 
