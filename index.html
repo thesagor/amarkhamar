@@ -36,6 +36,7 @@
     .hero h1 .highlight {
       background: linear-gradient(90deg, var(--green), var(--green-mid));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      display: inline-block; min-width: 5.5em; text-align: center;
     }
     .hero-subtitle {
       font-size: clamp(17px, 2.2vw, 22px); color: var(--text-muted);
@@ -251,6 +252,72 @@
     .apk-meta  { font-size: 12px; color: var(--text-muted); margin-top: 14px; }
     .apk-badges { display: flex; gap: 10px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
     .apk-badge  { background: var(--green-light); color: var(--green-dark); border-radius: 16px; padding: 5px 12px; font-size: 12px; font-weight: 600; }
+    .apk-label { display: block; text-align: left; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; }
+    .apk-input {
+      width: 100%; padding: 14px 16px; border: 2px solid var(--border);
+      border-radius: 12px; font-size: 15px; font-family: inherit;
+      margin-bottom: 16px; outline: none; transition: border-color .2s;
+      background: var(--bg);
+    }
+    .apk-input:focus { border-color: var(--green); background: var(--white); }
+    #accessMsg { min-height: 20px; font-weight: 600; margin-top: 12px; }
+    .access-link-row { margin-top: 24px; }
+
+    /* ── INTERACTIVE ANIMATIONS ── */
+    #scrollProgress {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, var(--green), var(--green-mid));
+      z-index: 1000; border-radius: 0 2px 2px 0;
+    }
+    nav.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+
+    .type-caret::after { content: '|'; margin-left: 2px; color: var(--green); animation: blink .8s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .hero { position: relative; }
+    .hero-particle {
+      position: absolute; bottom: -5vh; pointer-events: none; user-select: none;
+      opacity: .3; animation: particleFloat linear infinite;
+    }
+    @keyframes particleFloat {
+      0%   { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-110vh) rotate(360deg); }
+    }
+
+    .phone-wrap { transition: transform .18s ease-out; will-change: transform; transform-style: preserve-3d; }
+
+    .btn-primary, .btn-secondary, .nav-cta, .apk-btn { position: relative; overflow: hidden; }
+    .ripple-ink {
+      position: absolute; border-radius: 50%; background: rgba(255,255,255,.45);
+      transform: scale(0); animation: rippleAnim .6s ease-out forwards; pointer-events: none;
+    }
+    @keyframes rippleAnim { to { transform: scale(3.2); opacity: 0; } }
+
+    .confetti {
+      position: fixed; top: -10vh; z-index: 9999; pointer-events: none;
+      animation: confettiFall ease-out forwards;
+    }
+    @keyframes confettiFall {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(115vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* ── STATS BAND ── */
+    .stats-band {
+      background: linear-gradient(135deg, var(--green-dark), #134A2E);
+      padding: 56px 6%;
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 24px; max-width: 1100px; margin: 0 auto;
+    }
+    .stat-counter { text-align: center; color: #fff; }
+    .stat-num {
+      font-size: clamp(30px, 4vw, 44px); font-weight: 800;
+      color: #fff; line-height: 1.1;
+      text-shadow: 0 2px 12px rgba(0,0,0,.2);
+    }
+    .stat-label { font-size: 14px; opacity: .8; margin-top: 6px; }
 
     /* ── SCROLL FADE ── */
     .fade-up { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
@@ -308,6 +375,8 @@
 </head>
 <body>
 
+<div id="scrollProgress" aria-hidden="true"></div>
+
 <!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">
@@ -333,7 +402,8 @@
   <a href="#benefits" class="drawer-link">💡 সুবিধা</a>
   <a href="#download" class="drawer-link">📥 ডাউনলোড</a>
   <a href="privacy.html" class="drawer-link">🔒 গোপনীয়তা নীতি</a>
-  <a href="#download" class="drawer-cta">⬇️ ফ্রি ডাউনলোড করুন</a>
+  <a href="terms.html" class="drawer-link">📜 টার্মস ও শর্তাবলী</a>
+  <a href="#download" class="drawer-cta">📲 ফ্রি ডাউনলোড করুন</a>
 </div>
 
 <!-- HERO -->
@@ -345,7 +415,7 @@
     </div>
     <h1>
       আপনার খামার<br>
-      <span class="highlight">স্মার্টভাবে</span> চালান
+      <span class="highlight type-caret" id="rotatingWord">স্মার্টভাবে</span> চালান
     </h1>
     <p class="hero-subtitle">
       দুধ রেকর্ড থেকে আয়-ব্যয় হিসাব — সব কিছু এক জায়গায়।<br>
@@ -355,7 +425,7 @@
       🌾 "যে কৃষক তার তথ্য রাখেন, সে কৃষক এগিয়ে যান" — আমার খামার সেই পথ দেখায়।
     </div>
     <div class="hero-buttons">
-      <a href="#download" class="btn-primary">📱 APK ডাউনলোড করুন</a>
+      <a href="#download" class="btn-primary">📲 প্লে স্টোর থেকে ডাউনলোড করুন</a>
       <a href="#features" class="btn-secondary">✨ ফিচার দেখুন</a>
     </div>
     <div class="hero-stats">
@@ -427,7 +497,7 @@
             <div class="phone-alert">
               <div class="phone-alert-icon">⚠️</div>
               <div>
-                <div class="phone-alert-text">লক্ষ্মী হিট পিরিয়ডে আছে</div>
+                <div class="phone-alert-text">লক্ষ্মী এখন হিটে আছে</div>
                 <div class="phone-alert-sub">AI করানোর সময় হয়েছে</div>
               </div>
             </div>
@@ -478,7 +548,7 @@
     <div class="problem-card fade-up">
       <div class="problem-icon">🐄</div>
       <h3>প্রজনন ব্যবস্থাপনা জটিল</h3>
-      <p>গরুর হিট পিরিয়ড, AI, গর্ভধারণ ও প্রত্যাশিত ডেলিভারির তারিখ ট্র্যাক করা কঠিন।</p>
+      <p>গরুর হিটে আসা, AI, গর্ভধারণ ও প্রত্যাশিত প্রসবের তারিখ ট্র্যাক করা কঠিন।</p>
     </div>
   </div>
 </section>
@@ -519,13 +589,13 @@
       <div class="feature-icon-wrap" style="background:#EDE7F6;">🧬</div>
       <h3>প্রজনন ব্যবস্থাপনা</h3>
       <p>গরুর প্রজনন চক্র সম্পূর্ণ নিয়ন্ত্রণে রাখুন।</p>
-      <ul><li>হিট পিরিয়ড সনাক্তকরণ</li><li>AI প্রজননের তারিখ</li><li>গর্ভধারণ নিশ্চিতকরণ</li><li>প্রত্যাশিত ডেলিভারির তারিখ</li></ul>
+      <ul><li>হিটে আসা সনাক্তকরণ</li><li>AI প্রজননের তারিখ</li><li>গর্ভধারণ নিশ্চিতকরণ</li><li>প্রত্যাশিত প্রসবের তারিখ</li></ul>
     </div>
     <div class="feature-card fade-up" style="--fc-bg:#E8F5EC;">
       <div class="feature-icon-wrap" style="background:#E8F5EC;">🔔</div>
       <h3>স্মার্ট সতর্কতা</h3>
       <p>গুরুত্বপূর্ণ কাজ কখনো ভুলবেন না।</p>
-      <ul><li>হিট পিরিয়ডের রিমাইন্ডার</li><li>ডেলিভারির আগাম সতর্কতা</li><li>টিকার তারিখ মনে করিয়ে দেয়</li><li>ডাক্তারের ভিজিটের নোটিফিকেশন</li><li>জরুরি ও সাধারণ অগ্রাধিকার</li></ul>
+      <ul><li>হিটে আসার রিমাইন্ডার</li><li>প্রসবের আগাম সতর্কতা</li><li>টিকার তারিখ মনে করিয়ে দেয়</li><li>ডাক্তারের ভিজিটের নোটিফিকেশন</li><li>জরুরি ও সাধারণ অগ্রাধিকার</li></ul>
     </div>
   </div>
 </section>
@@ -538,7 +608,7 @@
     <p class="section-desc">প্রযুক্তিগত জ্ঞান ছাড়াও সহজে ব্যবহার করা যায়।</p>
   </div>
   <div class="steps">
-    <div class="step fade-up"><div class="step-num">১</div><div><h3>অ্যাপ ডাউনলোড করুন</h3><p>APK ফাইলটি ডাউনলোড করে আপনার Android ফোনে ইনস্টল করুন।</p></div></div>
+    <div class="step fade-up"><div class="step-num">১</div><div><h3>অ্যাপ ডাউনলোড করুন</h3><p>প্লে স্টোর থেকে অ্যাপটি ডাউনলোড করে আপনার Android ফোনে ইনস্টল করুন।</p></div></div>
     <div class="step fade-up"><div class="step-num">২</div><div><h3>খামারের তথ্য দিন</h3><p>আপনার নাম, খামারের নাম ও অন্যান্য তথ্য একবার সেট করুন।</p></div></div>
     <div class="step fade-up"><div class="step-num">৩</div><div><h3>গরু যোগ করুন</h3><p>প্রতিটি গরুর নাম, ট্যাগ, জাত ও স্ট্যাটাস অ্যাপে লিখুন।</p></div></div>
     <div class="step fade-up"><div class="step-num">৪</div><div><h3>প্রতিদিন ব্যবহার করুন</h3><p>দুধ রেকর্ড, আয়-ব্যয় লিখুন এবং স্বয়ংক্রিয় রিপোর্ট উপভোগ করুন।</p></div></div>
@@ -556,7 +626,7 @@
     <div class="benefit-list">
       <div class="benefit-item fade-up"><div class="benefit-icon" style="background:#E8F5EC;">📊</div><div><h3>সঠিক হিসাব, সঠিক সিদ্ধান্ত</h3><p>মাসিক আয়-ব্যয়ের সম্পূর্ণ চিত্র দেখে বুঝুন খামারে কোথায় খরচ বেশি এবং কীভাবে লাভ বাড়ানো যায়।</p></div></div>
       <div class="benefit-item fade-up"><div class="benefit-icon" style="background:#E3F2FD;">⏰</div><div><h3>সময় বাঁচান</h3><p>খাতায় হিসাব লেখার বদলে কয়েক সেকেন্ডে অ্যাপে রেকর্ড করুন।</p></div></div>
-      <div class="benefit-item fade-up"><div class="benefit-icon" style="background:#FFF3E0;">🔔</div><div><h3>কোনো কাজ মিস হবে না</h3><p>টিকা, ডাক্তারের ভিজিট, হিট পিরিয়ড — স্বয়ংক্রিয় সতর্কতায় সব মনে থাকবে।</p></div></div>
+      <div class="benefit-item fade-up"><div class="benefit-icon" style="background:#FFF3E0;">🔔</div><div><h3>কোনো কাজ মিস হবে না</h3><p>টিকা, ডাক্তারের ভিজিট, হিটে আসা — স্বয়ংক্রিয় সতর্কতায় সব মনে থাকবে।</p></div></div>
       <div class="benefit-item fade-up"><div class="benefit-icon" style="background:#FCE4EC;">📈</div><div><h3>উৎপাদন বৃদ্ধি করুন</h3><p>প্রতিটি গরুর দুধ উৎপাদনের ট্রেন্ড দেখে দুর্বল গরু চিহ্নিত করুন।</p></div></div>
     </div>
     <div class="benefits-img fade-up">
@@ -581,6 +651,28 @@
     <div class="offline-pill">✅ দ্রুত ও নির্ভরযোগ্য</div>
   </div>
 </div>
+
+<!-- STATS BAND (animated counters) -->
+<section class="stats-band">
+  <div class="stats-grid">
+    <div class="stat-counter fade-up">
+      <div class="stat-num"><span class="counter" data-target="5">০</span>টি</div>
+      <div class="stat-label">প্রধান মডিউল</div>
+    </div>
+    <div class="stat-counter fade-up">
+      <div class="stat-num"><span class="counter" data-target="100">০</span>%</div>
+      <div class="stat-label">অফলাইনে কাজ করে</div>
+    </div>
+    <div class="stat-counter fade-up">
+      <div class="stat-num"><span class="counter" data-target="50">০</span>+</div>
+      <div class="stat-label">ফিচার ও সুবিধা</div>
+    </div>
+    <div class="stat-counter fade-up">
+      <div class="stat-num"><span class="counter" data-target="365">০</span> দিন</div>
+      <div class="stat-label">পুরো বছরের রেকর্ড এক ফোনে</div>
+    </div>
+  </div>
+</section>
 
 <!-- TESTIMONIALS -->
 <section class="testimonials">
@@ -607,33 +699,39 @@
   </div>
 </section>
 
-<!-- DOWNLOAD -->
+<!-- DOWNLOAD / CLOSED TESTING -->
 <section class="download" id="download">
   <div class="download-layout">
     <div class="fade-up">
       <div class="section-tag">ডাউনলোড</div>
-      <h2 class="section-title">আজই শুরু করুন —<br>সম্পূর্ণ বিনামূল্যে</h2>
-      <p class="section-desc">Android ফোনে এক ক্লিকে ইনস্টল করুন।</p>
+      <h2 class="section-title">গুগল প্লে স্টোর থেকে<br>ডাউনলোড করুন</h2>
+      <p class="section-desc">অ্যাপটি এখন প্লে স্টোরের <b>ক্লোজড টেস্টিং</b> পর্যায়ে আছে। অ্যাক্সেস পেতে নিচের ৪টি ধাপ অনুসরণ করুন — সম্পূর্ণ বিনামূল্যে।</p>
       <div class="download-features">
-        <div class="dl-feat"><div class="dl-feat-icon">📱</div><span><b>Android 5.0+</b> সাপোর্ট করে</span></div>
-        <div class="dl-feat"><div class="dl-feat-icon">📦</div><span>ফাইল সাইজ মাত্র <b>~50 MB</b></span></div>
-        <div class="dl-feat"><div class="dl-feat-icon">🔒</div><span>কোনো <b>অ্যাকাউন্ট বা লগইন</b> লাগে না</span></div>
-        <div class="dl-feat"><div class="dl-feat-icon">🌐</div><span><b>ইন্টারনেট</b> ছাড়াই কাজ করে</span></div>
-        <div class="dl-feat"><div class="dl-feat-icon">🆓</div><span>সম্পূর্ণ <b>বিনামূল্যে</b> — কোনো সাবস্ক্রিপশন নেই</span></div>
+        <div class="dl-feat"><div class="dl-feat-icon">1️⃣</div><span>নিচের ঘরে আপনার <b>Play Store (Gmail) ইমেইল</b> দিন এবং অ্যাক্সেসের অনুরোধ পাঠান</span></div>
+        <div class="dl-feat"><div class="dl-feat-icon">2️⃣</div><span>সেই Gmail-এ <b>Google Play থেকে আমন্ত্রণ</b> পাবেন (সাধারণত ২৪ ঘণ্টার মধ্যে)</span></div>
+        <div class="dl-feat"><div class="dl-feat-icon">3️⃣</div><span>আমন্ত্রণ পাওয়ার পর লিংকে ক্লিক করে <b>Become a tester</b> চাপুন</span></div>
+        <div class="dl-feat"><div class="dl-feat-icon">4️⃣</div><span>তারপর প্লে স্টোর থেকেই <b>ইনস্টল</b> করুন</span></div>
+      </div>
+      <div class="access-link-row">
+        <a class="btn-secondary" href="https://play.google.com/apps/testing/com.amarkhomar.app" target="_blank" rel="noopener">▶️ প্লে স্টোর টেস্টিং লিংক খুলুন</a>
       </div>
     </div>
     <div class="apk-card fade-up">
-      <div class="apk-icon">📱</div>
-      <div class="apk-title">আমার খামার</div>
-      <div class="apk-sub">ডেইরি ফার্ম ম্যানেজমেন্ট অ্যাপ · সংস্করণ ২.০.০</div>
-      <a href="https://play.google.com/apps/testing/com.amarkhomar.appk" class="apk-btn" download>⬇️ APK ডাউনলোড করুন</a>
-      <div class="apk-meta">Android 5.0+ · ৫০ MB · বাংলা</div>
+      <div class="apk-icon">🔓</div>
+      <div class="apk-title">ক্লোজড টেস্টিং অ্যাক্সেস</div>
+      <div class="apk-sub">আপনার Gmail ইমেইলটি দিন — আমন্ত্রণ সরাসরি আপনার ইনবক্সে যাবে</div>
+      <form id="accessForm" novalidate>
+        <label class="apk-label" for="gmailInput">আপনার Play Store (Gmail) ইমেইল</label>
+        <input class="apk-input" type="email" id="gmailInput" placeholder="example@gmail.com" autocomplete="email" required />
+        <button type="submit" class="apk-btn" id="accessBtn">📩 অ্যাক্সেসের অনুরোধ পাঠান</button>
+      </form>
+      <div class="apk-meta" id="accessMsg" role="status"></div>
       <div class="apk-badges">
-        <div class="apk-badge">✅ অফলাইন</div>
         <div class="apk-badge">✅ বিনামূল্যে</div>
-        <div class="apk-badge">✅ বাংলা</div>
-        <div class="apk-badge">✅ নিরাপদ</div>
+        <div class="apk-badge">✅ অফলাইনে চলে</div>
+        <div class="apk-badge">✅ সম্পূর্ণ বাংলায়</div>
       </div>
+      <div class="apk-meta" style="margin-top:16px;">সংস্করণ ১.০.৩ · Android 7.0+ · ~৫০ MB</div>
     </div>
   </div>
 </section>
@@ -671,7 +769,7 @@
       <ul>
         <li><a href="#">Flutter / Dart</a></li>
         <li><a href="#">SQLite অফলাইন</a></li>
-        <li><a href="#">Android 5.0+</a></li>
+        <li><a href="#">Android 7.0+</a></li>
         <li><a href="#">HindSiliguri ফন্ট</a></li>
       </ul>
     </div>
@@ -679,6 +777,7 @@
       <h4>আইনি</h4>
       <ul>
         <li><a href="privacy.html">গোপনীয়তা নীতি</a></li>
+        <li><a href="terms.html">টার্মস ও শর্তাবলী</a></li>
         <li><a href="mailto:support@gorurhaat.com">যোগাযোগ</a></li>
       </ul>
     </div>
@@ -697,6 +796,24 @@
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  /* Fade-in fallback for environments where IntersectionObserver never
+     reports (some webviews): reveal elements by on-screen position. */
+  const fadeEls = document.querySelectorAll('.fade-up');
+  const fadeFallback = setInterval(() => {
+    let allVisible = true;
+    fadeEls.forEach(el => {
+      if (el.classList.contains('visible')) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.95 && r.bottom > 0) {
+        el.classList.add('visible');
+        observer.unobserve(el);
+      } else {
+        allVisible = false;
+      }
+    });
+    if (allVisible) clearInterval(fadeFallback);
+  }, 400);
 
   /* Stagger card animations */
   document.querySelectorAll('.features-grid .feature-card, .problem-grid .problem-card, .testi-grid .testi-card, .step')
@@ -746,6 +863,174 @@
       }
     });
   });
+
+  /* Closed-testing access form — opens the visitor's email app with the
+     request pre-filled so the team can add the Gmail to the tester list. */
+  const accessForm = document.getElementById('accessForm');
+  if (accessForm) {
+    accessForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = document.getElementById('gmailInput');
+      const msg = document.getElementById('accessMsg');
+      const email = input.value.trim();
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!valid) {
+        msg.textContent = '⚠️ সঠিক Gmail ইমেইল লিখুন (যেমন: example@gmail.com)';
+        msg.style.color = '#E53935';
+        return;
+      }
+      const subject = encodeURIComponent('আমার খামার — ক্লোজড টেস্টিং অ্যাক্সেস রিকোয়েস্ট');
+      const body = encodeURIComponent('আমার Play Store (Gmail) ইমেইল: ' + email + '\n\nঅনুগ্রহ করে আমাকে "আমার খামার" অ্যাপের ক্লোজড টেস্টিং-এ যুক্ত করুন।\nধন্যবাদ!');
+      burstConfetti();
+      window.location.href = 'mailto:support@gorurhaat.com?subject=' + subject + '&body=' + body;
+      msg.textContent = '✅ আপনার ইমেইল অ্যাপ খুলেছে — "পাঠান" চাপলেই অনুরোধ চলে যাবে। আমন্ত্রণ সাধারণত ২৪ ঘণ্টার মধ্যে Gmail-এ পৌঁছায়।';
+      msg.style.color = '#2D8659';
+    });
+  }
+
+  /* ── Interactive animations ──────────────────────────────────────── */
+
+  /* 1. Scroll progress bar + navbar shadow */
+  const progressBar = document.getElementById('scrollProgress');
+  const topNav = document.querySelector('nav');
+  const onScroll = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+    if (progressBar) progressBar.style.width = pct + '%';
+    if (topNav) topNav.classList.toggle('scrolled', h.scrollTop > 10);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  /* Fallback for environments where scroll events can be missed —
+     sync the bar every 400ms if it drifted. */
+  setInterval(() => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+    if (progressBar && progressBar.style.width !== pct + '%') {
+      progressBar.style.width = pct + '%';
+    }
+    if (topNav) topNav.classList.toggle('scrolled', h.scrollTop > 10);
+  }, 400);
+
+  /* 2. Typewriter rotating word in the hero headline */
+  const words = ['স্মার্টভাবে', 'সহজে', 'নিখুঁতভাবে', 'লাভজনকভাবে'];
+  const rotating = document.getElementById('rotatingWord');
+  if (rotating) {
+    let wi = 0, ci = 0, deleting = false;
+    (function typeLoop() {
+      const word = words[wi];
+      rotating.textContent = word.slice(0, ci);
+      let delay = deleting ? 45 : 110;
+      if (!deleting && ci === word.length) { delay = 1800; deleting = true; }
+      else if (deleting && ci === 0) { deleting = false; wi = (wi + 1) % words.length; delay = 300; }
+      else { ci += deleting ? -1 : 1; }
+      setTimeout(typeLoop, delay);
+    })();
+  }
+
+  /* 3. Floating leaves / milk drops in the hero */
+  const heroSection = document.querySelector('.hero');
+  if (heroSection) {
+    const icons = ['🍃', '💧', '🌿', '🥛'];
+    for (let i = 0; i < 14; i++) {
+      const p = document.createElement('span');
+      p.className = 'hero-particle';
+      p.textContent = icons[i % icons.length];
+      p.style.left = (2 + Math.random() * 86) + '%';
+      p.style.fontSize = (10 + Math.random() * 16) + 'px';
+      p.style.animationDuration = (9 + Math.random() * 12) + 's';
+      p.style.animationDelay = (-Math.random() * 20) + 's';
+      heroSection.appendChild(p);
+    }
+  }
+
+  /* 4. 3D tilt on the phone mockup (desktop pointers only) */
+  const phoneWrap = document.querySelector('.phone-wrap');
+  const heroVisual = document.querySelector('.hero-visual');
+  if (phoneWrap && heroVisual && window.matchMedia('(pointer: fine)').matches) {
+    heroVisual.addEventListener('mousemove', (e) => {
+      const r = heroVisual.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      phoneWrap.style.transform =
+        'perspective(900px) rotateY(' + (x * 10) + 'deg) rotateX(' + (-y * 10) + 'deg)';
+    });
+    heroVisual.addEventListener('mouseleave', () => { phoneWrap.style.transform = ''; });
+  }
+
+  /* 5. Click ripple on primary buttons */
+  document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta, .apk-btn').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      const r = this.getBoundingClientRect();
+      const size = Math.max(r.width, r.height) * 1.1;
+      const ink = document.createElement('span');
+      ink.className = 'ripple-ink';
+      ink.style.width = ink.style.height = size + 'px';
+      ink.style.left = (e.clientX - r.left - size / 2) + 'px';
+      ink.style.top = (e.clientY - r.top - size / 2) + 'px';
+      this.appendChild(ink);
+      setTimeout(() => ink.remove(), 650);
+    });
+  });
+
+  /* 6. Animated Bangla-digit counters (stats band) */
+  const bnDigits = '০১২৩৪৫৬৭৮৯';
+  const toBn = (n) => String(n).replace(/\d/g, d => bnDigits[Number(d)]);
+  const startCounter = (el) => {
+    if (el.dataset.done === '1') return;
+    el.dataset.done = '1';
+    const target = parseInt(el.dataset.target, 10);
+    const duration = 1400;
+    const start = performance.now();
+    // setTimeout-driven so it works even where rAF is throttled.
+    const tick = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = toBn(Math.round(target * eased));
+      if (p < 1) setTimeout(() => tick(performance.now()), 16);
+    };
+    setTimeout(() => tick(performance.now()), 16);
+  };
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { counterObserver.unobserve(entry.target); startCounter(entry.target); }
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+  /* Fallback: if IntersectionObserver never reports (some webviews),
+     start counters by their on-screen position. */
+  const counterFallback = setInterval(() => {
+    let allDone = true;
+    document.querySelectorAll('.counter').forEach(el => {
+      if (el.dataset.done !== '1') allDone = false;
+      const r = el.getBoundingClientRect();
+      if (el.dataset.done !== '1' && r.top < window.innerHeight * 0.9 && r.bottom > 0) {
+        counterObserver.unobserve(el);
+        startCounter(el);
+      }
+    });
+    if (allDone) clearInterval(counterFallback);
+  }, 500);
+
+  /* 7. Confetti burst (access form success) */
+  function burstConfetti() {
+    const colors = ['#2D8659', '#4CAF50', '#2196F3', '#FF9800', '#FFD54F', '#7B1FA2'];
+    for (let i = 0; i < 90; i++) {
+      const c = document.createElement('span');
+      c.className = 'confetti';
+      c.style.left = (Math.random() * 100) + 'vw';
+      c.style.width = (6 + Math.random() * 6) + 'px';
+      c.style.height = (10 + Math.random() * 8) + 'px';
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
+      c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      c.style.animationDuration = (1.6 + Math.random() * 1.4) + 's';
+      c.style.animationDelay = (Math.random() * 0.35) + 's';
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 3600);
+    }
+  }
 </script>
 </body>
 </html>

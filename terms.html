@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>টার্মস ও শর্তাবলী – আমার খামার</title>
+  <meta name="description" content="আমার খামার অ্যাপ ব্যবহারের শর্তাবলী। অ্যাপ ব্যবহারের আগে নিয়মগুলো পড়ে নিন।" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: linear-gradient(160deg, #F0FFF4 0%, #E8F5EC 60%, #DCEEE4 100%);
+      padding: 110px 6% 60px;
+      text-align: center;
+    }
+    .page-hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-light); border: 1px solid rgba(45,134,89,.25);
+      border-radius: 20px; padding: 6px 14px; margin-bottom: 20px;
+      font-size: 13px; font-weight: 600; color: var(--green-dark);
+    }
+    .page-hero-tag::before { content: '📜'; margin-right: 2px; }
+    .page-hero h1 {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700; color: var(--green-dark);
+      margin-bottom: 14px; line-height: 1.2;
+    }
+    .page-hero p {
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--text-muted); max-width: 620px;
+      margin: 0 auto 20px; line-height: 1.7;
+    }
+    .update-badge {
+      display: inline-block;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; padding: 6px 16px;
+      font-size: 13px; color: var(--text-muted);
+    }
+
+    /* ── CONTENT ── */
+    .content-wrap {
+      max-width: 800px; margin: 0 auto;
+      padding: 56px 6% 80px;
+    }
+    .toc {
+      background: var(--bg); border-radius: var(--radius);
+      padding: 24px 28px; margin-bottom: 48px;
+      border: 1px solid var(--border);
+    }
+    .toc h3 { font-size: 16px; font-weight: 700; margin-bottom: 14px; color: var(--green-dark); }
+    .toc ol { padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+    .toc ol li a {
+      text-decoration: none; color: var(--green);
+      font-size: 14px; font-weight: 500; transition: color .2s;
+    }
+    .toc ol li a:hover { color: var(--green-dark); text-decoration: underline; }
+
+    .policy-section { margin-bottom: 48px; scroll-margin-top: 88px; }
+    .policy-section h2 {
+      font-size: clamp(20px, 2.5vw, 26px); font-weight: 700; color: var(--green-dark);
+      margin-bottom: 16px; padding-bottom: 10px;
+      border-bottom: 2px solid var(--green-light);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .policy-section h2 .sec-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--green-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .policy-section p { font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 14px; }
+    .policy-section p:last-child { margin-bottom: 0; }
+    .policy-section ul {
+      padding-left: 0; list-style: none;
+      display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px;
+    }
+    .policy-section ul li {
+      font-size: 15px; color: var(--text-muted);
+      line-height: 1.7; display: flex; align-items: flex-start; gap: 10px;
+    }
+    .policy-section ul li::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 13px; flex-shrink: 0; margin-top: 3px; }
+    .policy-section ul li.dot::before { content: '•'; color: var(--green); font-size: 18px; margin-top: 0; }
+
+    .highlight-box {
+      background: var(--green-light); border-left: 4px solid var(--green);
+      border-radius: 0 10px 10px 0; padding: 16px 20px;
+      margin: 18px 0; font-size: 15px; color: var(--text); line-height: 1.7;
+    }
+    .highlight-box strong { color: var(--green-dark); }
+    .warning-box {
+      background: var(--orange-light); border-left: 4px solid var(--orange);
+      border-radius: 0 10px 10px 0; padding: 16px 20px;
+      margin: 18px 0; font-size: 15px; color: var(--text); line-height: 1.7;
+    }
+
+    .contact-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 16px; box-shadow: var(--shadow); }
+    .contact-row { display: flex; align-items: center; gap: 14px; }
+    .contact-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .contact-label { font-size: 12px; color: var(--text-muted); }
+    .contact-value { font-size: 15px; font-weight: 600; color: var(--text); }
+    .contact-value a { color: var(--green); text-decoration: none; }
+    .contact-value a:hover { text-decoration: underline; }
+
+    .back-to-top {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-light); color: var(--green-dark);
+      border-radius: 20px; padding: 8px 18px;
+      text-decoration: none; font-size: 14px; font-weight: 600;
+      transition: background .2s; margin-top: 32px;
+    }
+    .back-to-top:hover { background: #d4edda; }
+
+    @media (max-width: 600px) {
+      .page-hero   { padding: 90px 4% 48px; }
+      .content-wrap { padding: 40px 4% 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-icon">🌿</div>
+    <span class="nav-logo-text">আমার খামার</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#features">ফিচার</a></li>
+    <li><a href="index.html#how">কীভাবে কাজ করে</a></li>
+    <li><a href="index.html#benefits">সুবিধা</a></li>
+    <li><a href="index.html#download">ডাউনলোড</a></li>
+  </ul>
+  <a href="index.html#download" class="nav-cta">ফ্রি ডাউনলোড করুন</a>
+  <div class="nav-burger" id="navBurger" aria-label="মেনু খুলুন" role="button" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Drawer -->
+<div class="nav-mobile-drawer" id="mobileDrawer">
+  <a href="index.html#features">✨ ফিচার</a>
+  <a href="index.html#how">📋 কীভাবে কাজ করে</a>
+  <a href="index.html#benefits">💡 সুবিধা</a>
+  <a href="index.html#download">📥 ডাউনলোড</a>
+  <a href="privacy.html">🔒 গোপনীয়তা নীতি</a>
+  <a href="index.html#download" class="drawer-cta">📲 ফ্রি ডাউনলোড করুন</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-tag">টার্মস ও শর্তাবলী</div>
+  <h1>অ্যাপ ব্যবহারের শর্তাবলী</h1>
+  <p>আমার খামার অ্যাপ ব্যবহার করার আগে নিচের শর্তগুলো মন দিয়ে পড়ুন। অ্যাপ ব্যবহার করলেই আপনি এই শর্তগুলো মেনে নিয়েছেন বলে ধরা হবে।</p>
+  <div class="update-badge">📅 কার্যকর তারিখ: অক্টোবর ২০২৬</div>
+</div>
+
+<!-- CONTENT -->
+<div class="content-wrap">
+
+  <div class="toc">
+    <h3>📋 বিষয়বস্তু</h3>
+    <ol>
+      <li><a href="#t1">শর্তাবলী মেনে নেওয়া</a></li>
+      <li><a href="#t2">পরিষেবার বিবরণ</a></li>
+      <li><a href="#t3">ক্লোজড টেস্টিং (বিটা সংস্করণ)</a></li>
+      <li><a href="#t4">ব্যবহারকারীর দায়িত্ব</a></li>
+      <li><a href="#t5">ডেটা ও গোপনীয়তা</a></li>
+      <li><a href="#t6">বিজ্ঞাপন</a></li>
+      <li><a href="#t7">মেধাস্বত্ব</a></li>
+      <li><a href="#t8">ওয়্যারেন্টি ও দায় সীমাবদ্ধতা</a></li>
+      <li><a href="#t9">শর্তাবলী পরিবর্তন</a></li>
+      <li><a href="#t10">প্রযোজ্য আইন</a></li>
+      <li><a href="#t11">যোগাযোগ</a></li>
+    </ol>
+  </div>
+
+  <!-- 1 -->
+  <div class="policy-section" id="t1">
+    <h2><div class="sec-icon">✅</div>১. শর্তাবলী মেনে নেওয়া</h2>
+    <p>আমার খামার অ্যাপটি ডাউনলোড, ইনস্টল বা ব্যবহার করার মাধ্যমে আপনি এই শর্তাবলীতে সম্মতি দিচ্ছেন। আপনি যদি কোনো শর্তে রাজি না হন, তাহলে অনুগ্রহ করে অ্যাপটি ব্যবহার করবেন না।</p>
+  </div>
+
+  <!-- 2 -->
+  <div class="policy-section" id="t2">
+    <h2><div class="sec-icon">🐄</div>২. পরিষেবার বিবরণ</h2>
+    <p>আমার খামার একটি বাংলা ভাষার ডেইরি ফার্ম ম্যানেজমেন্ট অ্যাপ, যা দিয়ে আপনি আপনার খামারের গরু, দুধ উৎপাদন, আয়-ব্যয়, প্রজনন ও স্বাস্থ্য রেকর্ড পরিচালনা করতে পারেন।</p>
+    <ul>
+      <li>অ্যাপটি সম্পূর্ণ অফলাইনে কাজ করে — কোনো ইন্টারনেট সংযোগের প্রয়োজন নেই</li>
+      <li>ব্যবহারের জন্য কোনো অ্যাকাউন্ট বা লগইন লাগে না</li>
+      <li>অ্যাপটি বিনামূল্যে দেওয়া হয় এবং বিজ্ঞাপন দ্বারা পরিচালিত</li>
+    </ul>
+  </div>
+
+  <!-- 3 -->
+  <div class="policy-section" id="t3">
+    <h2><div class="sec-icon">🧪</div>৩. ক্লোজড টেস্টিং (বিটা সংস্করণ)</h2>
+    <p>এই অ্যাপটি বর্তমানে Google Play-এর ক্লোজড টেস্টিং (বিটা) পর্যায়ে রয়েছে। এর অর্থ:</p>
+    <ul>
+      <li class="dot">অ্যাপে কিছু ত্রুটি (bug) বা অসম্পূর্ণতা থাকতে পারে</li>
+      <li class="dot">টেস্টিং চলাকালীন ফিচার যোগ, পরিবর্তন বা বাদ যেতে পারে</li>
+      <li class="dot">আপনার মতামত ও সমস্যার রিপোর্ট অ্যাপ উন্নত করতে সাহায্য করবে</li>
+    </ul>
+    <div class="highlight-box">
+      <strong>পরামর্শ:</strong> গুরুত্বপূর্ণ খামার ডেটা রাখার আগে নিয়মিত অ্যাপের <strong>ব্যাকআপ</strong> ফিচারটি ব্যবহার করুন।
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="policy-section" id="t4">
+    <h2><div class="sec-icon">📝</div>৪. ব্যবহারকারীর দায়িত্ব</h2>
+    <p>অ্যাপটি ব্যবহারের সময় আপনি দায়ী থাকবেন:</p>
+    <ul>
+      <li>রেকর্ড করা তথ্য যেন সঠিক হয় — দুধের পরিমাণ, খরচ ইত্যাদি ঠিকমতো লেখা আপনার দায়িত্ব</li>
+      <li>নিয়মিত ব্যাকআপ নেওয়া — ফোন হারালে বা পরিবর্তন করলে ডেটা ফিরে পেতে ব্যাকআপই একমাত্র উপায়</li>
+      <li>গরুর চিকিৎসা বা প্রজনন সংক্রান্ত সিদ্ধান্ত নেওয়ার আগে অভিজ্ঞ পশু চিকিৎসকের পরামর্শ নেওয়া</li>
+    </ul>
+  </div>
+
+  <!-- 5 -->
+  <div class="policy-section" id="t5">
+    <h2><div class="sec-icon">🔒</div>৫. ডেটা ও গোপনীয়তা</h2>
+    <p>আপনার সব খামার ডেটা শুধুমাত্র আপনার ফোনে সংরক্ষিত থাকে। কোনো ডেটা আমাদের সার্ভারে পাঠানো হয় না। বিস্তারিত জানতে আমাদের <a href="privacy.html" style="color:var(--green);">গোপনীয়তা নীতি</a> দেখুন।</p>
+    <div class="warning-box">
+      ⚠️ <strong>সতর্কতা:</strong> অ্যাপ আনইনস্টল করলে বা ফোন রিসেট দিলে ডেটা স্থায়ীভাবে মুছে যাবে। আগে অবশ্যই ব্যাকআপ নিন।
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="policy-section" id="t6">
+    <h2><div class="sec-icon">📢</div>৬. বিজ্ঞাপন</h2>
+    <p>অ্যাপটি বিনামূল্যে রাখার জন্য এর মধ্যে Google AdMob-এর বিজ্ঞাপন দেখানো হয়। ইউরোপীয় ইউনিয়নসহ কিছু অঞ্চলের ব্যবহারকারীদের জন্য Google-এর সম্মতি (consent) ফর্ম দেখানো হয়, যেখান থেকে আপনি বিজ্ঞাপন পছন্দ নিয়ন্ত্রণ করতে পারেন।</p>
+  </div>
+
+  <!-- 7 -->
+  <div class="policy-section" id="t7">
+    <h2><div class="sec-icon">©️</div>৭. মেধাস্বত্ব</h2>
+    <p>আমার খামার অ্যাপ, এর নাম, লোগো, ডিজাইন ও সোর্স কোডের স্বত্ব <strong>Gorurhaat.com</strong>-এর কাছে সংরক্ষিত। আমাদের লিখিত অনুমতি ছাড়া এগুলো কপি, পরিবর্তন, বিক্রি বা বিতরণ করা যাবে না।</p>
+  </div>
+
+  <!-- 8 -->
+  <div class="policy-section" id="t8">
+    <h2><div class="sec-icon">⚖️</div>৮. ওয়্যারেন্টি ও দায় সীমাবদ্ধতা</h2>
+    <p>অ্যাপটি "যেমন আছে, তেমনই" (as-is) ভিত্তিতে দেওয়া হয়। আমরা কোনো ধরনের ওয়্যারেন্টি দিই না, যেমন — অ্যাপটি সবসময় ত্রুটিমুক্ত থাকবে বা আপনার নির্দিষ্ট প্রয়োজনে কাজ করবে।</p>
+    <p>যতদূর আইন অনুমোদন করে, আমরা নিচের বিষয়ের জন্য দায়ী থাকব না:</p>
+    <ul>
+      <li>ডেটা হারানো, ফোন নষ্ট বা অ্যাপের ত্রুটির কারণে কোনো ক্ষতি</li>
+      <li>অ্যাপে থাকা তথ্যের ভিত্তিতে নেওয়া খামার বা ব্যবসায়িক সিদ্ধান্তের ফলাফল</li>
+      <li>তৃতীয় পক্ষের (যেমন Google AdMob) সেবার কারণে হওয়া কোনো ক্ষতি</li>
+    </ul>
+  </div>
+
+  <!-- 9 -->
+  <div class="policy-section" id="t9">
+    <h2><div class="sec-icon">🔄</div>৯. শর্তাবলী পরিবর্তন</h2>
+    <p>আমরা প্রয়োজনে এই শর্তাবলী সময়ে সময়ে হালনাগাদ করতে পারি। পরিবর্তনের পর নতুন শর্তাবলী এই পেজে প্রকাশিত হবে। উল্লেখযোগ্য পরিবর্তন হলে অ্যাপের ভেতরে জানানো হবে।</p>
+  </div>
+
+  <!-- 10 -->
+  <div class="policy-section" id="t10">
+    <h2><div class="sec-icon">🏛️</div>১০. প্রযোজ্য আইন</h2>
+    <p>এই শর্তাবলী বাংলাদেশের আইন অনুযায়ী পরিচালিত ও ব্যাখ্যাকৃত হবে। শর্তাবলী সংক্রান্ত যেকোনো বিরোধ বাংলাদেশের আদালতের এখতিয়ারভুক্ত হবে।</p>
+  </div>
+
+  <!-- 11 -->
+  <div class="policy-section" id="t11">
+    <h2><div class="sec-icon">📬</div>১১. যোগাযোগ</h2>
+    <p>শর্তাবলী সম্পর্কে কোনো প্রশ্ন থাকলে আমাদের সাথে যোগাযোগ করুন:</p>
+    <div class="contact-card">
+      <div class="contact-row">
+        <div class="contact-icon" style="background:#E8F5EC;">🌐</div>
+        <div><div class="contact-label">ওয়েবসাইট</div><div class="contact-value"><a href="https://gorurhaat.com" target="_blank" rel="noopener">Gorurhaat.com</a></div></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon" style="background:#E3F2FD;">✉️</div>
+        <div><div class="contact-label">ইমেইল</div><div class="contact-value"><a href="mailto:support@gorurhaat.com">support@gorurhaat.com</a></div></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon" style="background:#FFF3E0;">🏢</div>
+        <div><div class="contact-label">প্রতিষ্ঠান</div><div class="contact-value">Gorurhaat.com — আমার খামার টিম</div></div>
+      </div>
+    </div>
+  </div>
+
+  <a href="#" class="back-to-top">↑ উপরে যান</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-brand-logo">
+        <div class="footer-brand-logo-icon">🌿</div>
+        <span class="footer-brand-name">আমার খামার</span>
+      </div>
+      <p>বাংলাদেশের ডেইরি কৃষকদের জন্য তৈরি স্মার্ট ফার্ম ম্যানেজমেন্ট অ্যাপ। সম্পূর্ণ বাংলায়, সম্পূর্ণ অফলাইনে।</p>
+    </div>
+    <div class="footer-col">
+      <h4>ফিচার</h4>
+      <ul>
+        <li><a href="index.html#features">গরু ব্যবস্থাপনা</a></li>
+        <li><a href="index.html#features">দুধ রেকর্ড</a></li>
+        <li><a href="index.html#features">আয়-ব্যয় হিসাব</a></li>
+        <li><a href="index.html#features">স্বাস্থ্য রেকর্ড</a></li>
+        <li><a href="index.html#features">প্রজনন ব্যবস্থাপনা</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>অ্যাপ</h4>
+      <ul>
+        <li><a href="index.html#how">কীভাবে কাজ করে</a></li>
+        <li><a href="index.html#benefits">সুবিধা</a></li>
+        <li><a href="index.html#download">ডাউনলোড</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>আইনি</h4>
+      <ul>
+        <li><a href="privacy.html">গোপনীয়তা নীতি</a></li>
+        <li><a href="terms.html" style="color:#fff;">টার্মস ও শর্তাবলী</a></li>
+        <li><a href="mailto:support@gorurhaat.com">যোগাযোগ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© ২০২৬ আমার খামার। বাংলাদেশের কৃষকদের জন্য ❤️ দিয়ে তৈরি।</p>
+    <p>সকল কৃষক ভাইদের প্রতি শুভেচ্ছা 🌿</p>
+  </div>
+</footer>
+
+<script>
+  /* Hamburger menu */
+  const burger = document.getElementById('navBurger');
+  const drawer = document.getElementById('mobileDrawer');
+  function toggleMenu(open) {
+    burger.classList.toggle('open', open);
+    drawer.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  burger.addEventListener('click', () => toggleMenu(!drawer.classList.contains('open')));
+  burger.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') toggleMenu(!drawer.classList.contains('open')); });
+  drawer.querySelectorAll('a').forEach(link => link.addEventListener('click', () => toggleMenu(false)));
+  document.addEventListener('click', e => {
+    if (drawer.classList.contains('open') && !drawer.contains(e.target) && !burger.contains(e.target)) toggleMenu(false);
+  });
+  window.addEventListener('resize', () => { if (window.innerWidth > 900) toggleMenu(false); });
+</script>
+</body>
+</html>
